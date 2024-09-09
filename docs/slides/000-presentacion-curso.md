@@ -1,11 +1,13 @@
 % Desarrollo de Aplicaciones en Internet
 % Universitat d'Alacant
-% 2023&mdash;2024
+% 2024&mdash;2025
 
 ## Profesor y tutoría
 
-- Juan Antonio Pérez Ortiz, Departamento de Lenguajes y Sistemas Informáticos
+- Teoría: Juan Antonio Pérez Ortiz, Departamento de Lenguajes y Sistemas Informáticos
+- japerez@ua.es, japer3z
 - Edificio Politécnica 4, módulo 2, planta 2
+- Prácticas: Juan Antonio Pérez y profesor del mismo departamento de inminente contratación
 - Tutoría previa reserva a través de UACloud
 
 ## Contenido de la asignatura
@@ -33,7 +35,7 @@
 
 - Desarrollo individual e incremental de una aplicación web
 - Asistencia obligatoria, pero se admite un máximo de 4 faltas sin justificar
-- Fechas aproximadas de entrega: 5 octubre, 2 noviembre, 23 noviembre, 21 diciembre
+- Fechas aproximadas de entrega: 3 octubre, 31 octubre, 21 noviembre, 19 diciembre
 - Peso: 40% de la nota final (sin nota mínima)
 
 ## Plagios
@@ -53,6 +55,11 @@
   - no estarán disponibles en los exámenes
   - pueden generar código no trivial que sea considerado como plagio
 
+## Hablando de IA...
+
+- El desarrollo web es uno de los campos donde la IA va a tener más impacto a corto plazo.
+- Posibilidad de trabajar en un TFG relacionado con procesamiento de lenguaje natural o asistentes de programación.
+
 ## Exámenes
 
 - Examen teórico con problemas de respuesta corta y abierta como los que iremos viendo en clase (peso: 20%)
@@ -69,6 +76,7 @@
 
 - Los contenidos concretos que aprendas no son tan importantes como las capacidades que desarrolles.
 - Oblígate a preguntar con frecuencia. Cualquier persona en el proceso de aprender tiene dudas.
+- Tus dudas suelen ser las de otros y, además, ayudan al profesor a detectar lo que no se ha explicado bien.
 
 ## Profesional en Tecnologías de la Información
 
