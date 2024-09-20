@@ -18,7 +18,7 @@ Este es el calendario de cada uno de los entregables de la asignatura. No se adm
       - Tiempo medio estimado de realización
       - Porcentaje en la nota de prácticas
     * - P1
-      - `Práctica 1: una página web con HTML5 🖥️`_
+      - `Práctica 1: una página web con HTML y CSS 🖥️`_
       - 3 octubre 2024 
       - 8 horas
       - 20%
@@ -47,8 +47,8 @@ Realiza tu entrega en un único fichero comprimido a través del `servidor web d
 .. _`servidor web del Departamento`: https://pracdlsi.dlsi.ua.es/index.cgi?id=val
 
 
-Práctica 1: una página web con HTML5 🖥️
----------------------------------------
+Práctica 1: una página web con HTML y CSS 🖥️
+--------------------------------------------
 
 En esta práctica vas a crear un documento HTML5 en el que *todo* el formato recaiga en hojas de estilo CSS (por tanto, no es posible usar atributos como ``style`` para el formato). Tu documento se llamará ``index.html`` y tendrá dos vistas diferentes, *normal* (la vista por defecto) y *compacta*; el usuario podrá cambiar de vista en cualquier momento usando los enlaces a pie de página. El objetivo es que consigas un documento que se muestre exactamente como puedes ver en estas imágenes de la `vista normal`_ y de la `vista compacta`_. Tu documento usará tres hojas de estilo: una con todo el contenido común a ambas vistas y dos más correspondientes a cada una de las vistas. Para poder alternar entre ambas hojas de estilo, añade este código a la cabecera (``head``) de tu página:
 
