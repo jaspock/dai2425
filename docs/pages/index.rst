@@ -124,6 +124,7 @@ Actividades previas a las clases
 .. _`test sobre el modelo de caja de CSS`: https://forms.gle/PNmsNUSdrYMUsj5d9
 
 
+
 Guía docente y normas del curso
 -------------------------------
 
