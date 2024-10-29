@@ -103,7 +103,8 @@ Connection: close
 - Cookies: el servidor añade a su respuesta una cabecera como la siguiente y restringe la cookie a ciertos dominios:
 
 ~~~
-Set-Cookie: session-id=12345ABC; username=juan
+Set-Cookie: session-id=12345ABC; Expires=Wed, 09 Jun 2023 10:18:14 GMT 
+Set-Cookie: username=juan
 ~~~
 
 - El navegador añade al mensaje de la petición cuando se accede a dichos dominios una cabecera como
