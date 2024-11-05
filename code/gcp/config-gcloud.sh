@@ -4,9 +4,9 @@
 # No pongas espacios en blanco innecesarios.
 ESTUDIANTE=abc999@gcloud.ua.es
 
-# Pon en la variable PROFESOR la cuenta gcloud.ua.es de los profesores.
-PROFESOR1=cuenta_del_profesor@gcloud.ua.es
-PROFESOR2=cuenta_del_profesor@gcloud.ua.es
+# Pon en las variables PROFESOR la cuenta gcloud.ua.es de los profesores.
+PROFESOR1=cuenta_del_profesor1@gcloud.ua.es
+PROFESOR2=cuenta_del_profesor2@gcloud.ua.es
 
 # Pon en la variable USRGCP la cuenta en la que hayas canjeado los créditos educativos.
 # Lo habitual es que sea la misma que la de la variable ESTUDIANTE.
