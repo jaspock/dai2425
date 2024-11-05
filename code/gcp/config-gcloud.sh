@@ -4,8 +4,9 @@
 # No pongas espacios en blanco innecesarios.
 ESTUDIANTE=abc999@gcloud.ua.es
 
-# Pon en la variable PROFESOR la cuenta gcloud.ua.es del profesor.
-PROFESOR=cuenta_del_profesor@gcloud.ua.es
+# Pon en la variable PROFESOR la cuenta gcloud.ua.es de los profesores.
+PROFESOR1=cuenta_del_profesor@gcloud.ua.es
+PROFESOR2=cuenta_del_profesor@gcloud.ua.es
 
 # Pon en la variable USRGCP la cuenta en la que hayas canjeado los créditos educativos.
 # Lo habitual es que sea la misma que la de la variable ESTUDIANTE.
@@ -41,8 +42,11 @@ gcloud alpha projects create $PROYECTO --name=$PROYECTO -q
 echo "Lista de proyectos:"
 gcloud alpha projects list|tail -n +2
 
-echo "Incorporando al profesor al proyecto..."
-gcloud projects add-iam-policy-binding $PROYECTO --member="user:$PROFESOR" --role="roles/owner"
+echo "Incorporando al profesor 1 al proyecto..."
+gcloud projects add-iam-policy-binding $PROYECTO --member="user:$PROFESOR1" --role="roles/owner"
+
+echo "Incorporando al profesor 2 al proyecto..."
+gcloud projects add-iam-policy-binding $PROYECTO --member="user:$PROFESOR2" --role="roles/owner"
 
 echo "Dando permisos al estudiante para que pueda permitir a allUsers invocar las funciones de Cloud Functions..."
 gcloud projects add-iam-policy-binding $PROYECTO --member="user:$USRGCP" --role="roles/cloudfunctions.admin"
