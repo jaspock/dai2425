@@ -33,7 +33,7 @@ fi
 
 
 CHAR6=`echo $RANDOM | md5sum | head -c 8`  # cadena aleatoria de longitud 8
-CURSO=dai2324
+CURSO=dai2425
 PROYECTO=$CURSO-$ESTUDIANTE_ID-$CHAR6
 
 echo "Creando el proyecto en GCP..."
@@ -51,17 +51,19 @@ gcloud projects add-iam-policy-binding $PROYECTO --member="user:$PROFESOR2" --ro
 echo "Dando permisos al estudiante para que pueda permitir a allUsers invocar las funciones de Cloud Functions..."
 gcloud projects add-iam-policy-binding $PROYECTO --member="user:$USRGCP" --role="roles/cloudfunctions.admin"
 
-echo "Creando la app de Google App Engine (normalmente puedes ignorar el warning, si lo hay)..."
-gcloud app create --region=europe-west3 --project=$PROYECTO
-
 echo "Obteniendo la cuenta educativa..."
 CUENTA=`gcloud alpha billing accounts list | sed '2q;d' | head -c 20`
+# Asignar el id de la cuenta de facturación a la variable CUENTA manualmente si hay más de una:
+# CUENTA=
 
 echo "Asociando el proyecto a la cuenta educativa $CUENTA..."
 gcloud alpha billing projects link $PROYECTO --billing-account=$CUENTA
 
 # echo "Proyectos ligados a la cuenta $CUENTA:"
 # gcloud beta billing projects list --billing-account=$CUENTA
+
+echo "Creando la app de Google App Engine (normalmente puedes ignorar el warning, si lo hay)..."
+gcloud app create --region=europe-west3 --project=$PROYECTO
 
 echo "Configurando el proyecto por defecto..."
 gcloud config set project $PROYECTO
