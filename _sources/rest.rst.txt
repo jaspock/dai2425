@@ -340,7 +340,7 @@ Prueba de la aplicación del carrito
 
 A continuación, descarga el código del cliente y del servidor de la aplicación del carrito; clona para ello el repositorio de la asignatura haciendo::
 
-  git clone https://github.com/jaspock/dai2324.git
+  git clone https://github.com/jaspock/dai2425.git
 
 Entra en el directorio ``code/carrito`` y ejecuta::
 

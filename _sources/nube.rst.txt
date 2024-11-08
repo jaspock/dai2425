@@ -59,7 +59,7 @@ Si posteriormente el sistema CLI se desvinculara por algún motivo de tu cuenta,
 
 Ahora tienes que ejecutar `este script`_ de Linux para crear un proyecto, vincularlo a tu cuenta y añadir al profesor como administrador. Antes de ejecutarlo edítalo y pon tu cuenta completa de ``gcloud`` en la variable ``ESTUDIANTE`` y la cuenta que el profesor te habrá indicado previamente en la variable ``PROFESOR``. Es posible que la ejecución del script se demore por unos minutos. 
 
-.. _`este script`: https://raw.githubusercontent.com/jaspock/dai2324/main/code/gcp/config-gcloud.sh
+.. _`este script`: https://raw.githubusercontent.com/jaspock/dai2425/main/code/gcp/config-gcloud.sh
 
 .. Important::
 
