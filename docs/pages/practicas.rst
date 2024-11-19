@@ -34,7 +34,7 @@ Este es el calendario de cada uno de los entregables de la asignatura. No se adm
       - 25%
     * - P4
       - `Práctica 4: una aplicación en la nube 🖥️`_
-      - 19 diciembre 2024 (provisional)
+      - 19 diciembre 2024
       - 20 horas
       - 30%
 
