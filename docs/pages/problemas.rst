@@ -1517,7 +1517,324 @@ Lenguajes de estilo
   Indica con qué sustituir ``@1`` y ``@2`` para conseguir el efecto deseado. No es relevante para este problema, pero poner ``display`` a ``inline-block`` permite que la animación tenga realmente lugar porque estas no son posibles en elementos ``inline``. Por otro lado, el valor de ``transform-origin`` se ha ajustado para que la mano rote desde la muñeca y no desde el punto central.
 
   .. solución: @1=infinite  @2=0.0deg
+  .. enero 2023
 
+.. ------------
+
+.. admonition:: :problema-contador-estilo:`Problema`
+  :class: problema
+
+  Considera el siguiente fragmento de un documento HTML:
+
+  .. code-block:: html
+
+    <body>
+      <div class="container">
+        <div class="inner-box1">
+          <div class="inner-box2"></div>
+        </div>
+      </div>
+    </body>
+    
+  Considera también los siguientes estilos de CSS:
+
+  .. code-block:: css
+    :force:
+
+    * {
+      box-sizing: content-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      background-color: #777;
+    }
+
+    .inner-box1 {
+      position: @1;
+      top: 50px;
+      right: 50px;
+      width: 100px;
+      height: 100px;
+      background-color: #aaa;
+    }
+
+    .inner-box2 {
+      position: absolute;
+      bottom: @2;
+      left: @3;
+      width: 50px;
+      height: 50px;
+      background-color: #ccc;
+    }
+
+
+  El código anterior corresponde a tres cuadrados anidados. El más grande tiene de lado 200 píxeles. El cuadrado mediano está centrado en el grande y su lado tiene la mitad de longitud del cuadrado grande. El tercer cuadrado está centrado en el cuadrado mediano y su lado tiene la mitad de longitud que este. Indica el código CSS por el que es necesario sustituir las marcas ``@1``, ``@2`` y ``@3`` para que el fragmento HTML se muestre como sigue:
+
+  .. raw:: html
+
+    <div id="problema-cuadrados-dentro">
+    <script>
+      var root = document.querySelector('#problema-cuadrados-dentro').attachShadow({mode:'open'});
+      root.innerHTML = `
+        <style>
+        * {
+          box-sizing: content-box;
+          margin: 0;
+          padding: 0;
+        }
+
+        .container {
+          position: relative;
+          width: 200px;
+          height: 200px;
+          background-color: #777;
+        }
+
+        .inner-box1 {
+          position: absolute;
+          top: 50px;
+          right: 50px;
+          width: 100px;
+          height: 100px;
+          background-color: #aaa;
+        }
+
+        .inner-box2 {
+          position: absolute;
+          bottom: 25px;
+          left: 25px;
+          width: 50px;
+          height: 50px;
+          background-color: #ccc;
+        }
+        </style>
+        <div class="container">
+          <div class="inner-box1">
+            <div class="inner-box2"></div>
+          </div>
+        </div>`;
+    </script>
+    </div>
+    
+  Considera que no hay otros estilos definidos que puedan entrar en conflicto con anteriores.
+
+  .. solución: @1=absolute, @2=25px, @3=25px
+  .. enero 2023
+
+.. ------
+
+
+.. admonition:: :problema-contador-estilo:`Problema`
+  :class: problema
+
+  Queremos mostrar en el navegador fichas de libros que imitan las de cartulina que se usaban antaño en los ficheros de las bibliotecas:  
+  
+  .. raw:: html
+
+    <div id="problema-ficha-regenta">
+    <script>
+      var root = document.querySelector('#problema-ficha-regenta').attachShadow({mode:'open'});
+      root.innerHTML = `
+          <style>
+            @import url('https://fonts.googleapis.com/css2?family=Seaweed+Script&display=swap');
+            .card {
+              background: floralwhite;
+              box-shadow: 6px 6px 5px gray;
+              width: 480px;
+              height: 280px;
+              padding: 5px;
+            }
+            .blueline {
+              width: 100%;
+              background-color: steelblue;
+              height: 2px;
+            }
+            .text_title {
+              font-family: 'Seaweed Script', cursive;
+              font-size: 2em;
+              bottom: 0;
+              position: absolute;
+              font-weight: bold;
+            }
+            .redline {
+              width: 100%;
+              background-color: red;
+              height: 4px;
+            }
+            .text {
+              font-family: 'Seaweed Script', cursive;
+              font-size: 1.2em;
+              bottom: 0;
+              position: absolute;
+            }
+            .card_title {
+              height: 60px;
+              width: 100%;
+              position: relative;
+            }
+            .card_row {
+              height: 30px;
+              width: 100%;
+              position: relative;
+            }
+          </style>
+          <div class="card">
+            <div class="card_title">
+              <span class="text_title">La Regenta I</span>
+            </div>
+            <div class="redline"></div>
+            <div class="card_row">
+              <span class="text">
+                <strong>Autor: </strong>Leopoldo Alas &laquo;Clarín&raquo;
+              </span>
+            </div>
+            <div class="blueline"></div>
+            <div class="card_row">
+              <span class="text"><strong>Editorial: </strong>Cátedra</span>
+            </div>
+            <div class="blueline"></div>
+            <div class="card_row">
+              <span class="text"><strong>Año: </strong>2004</span>
+            </div>
+            <div class="blueline"></div>
+            <div class="card_row">
+              <span class="text"><strong>ISBN: </strong>978-84-376-0454-1</span>
+            </div>
+            <div class="blueline"></div>
+            <div class="card_row"><span class="text"></span></div>
+            <div class="blueline"></div>
+            <div class="card_row"><span class="text"></span></div>
+            <div class="blueline"></div>
+          </div>`
+    </script>
+    </div>
+  
+  El siguiente código en HTML y CSS permite mostrar una ficha como la anterior, pero la mayoría de los selectores han desaparecido de la hoja de estilo:
+  
+  .. code-block:: html
+    :force:
+
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+      <title>La Regenta I</title>
+      <style>
+        @import url('https://fonts.googleapis.com/css2?family=Seaweed+Script&display=swap');
+        .card {
+          background: floralwhite;
+          box-shadow: 6px 6px 5px gray;
+          width: 480px;
+          height: 280px;
+          padding: 5px;
+        }
+        @1 {
+          width: 100%;
+          background-color: steelblue;
+          height: 2px;
+        }
+        @2 {
+          font-family: 'Seaweed Script', cursive;
+          font-size: 2em;
+          bottom: 0;
+          position: absolute;
+          font-weight: bold;
+        }
+        @3 {
+          width: 100%;
+          background-color: red;
+          height: 4px;
+        }
+        @4 {
+          font-family: 'Seaweed Script', cursive;
+          font-size: 1.2em;
+          bottom: 0;
+          position: absolute;
+        }
+        @5 {
+          height: 60px;
+          width: 100%;
+          position: relative;
+        }
+        @6 {
+          height: 30px;
+          width: 100%;
+          position: relative;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="card">
+        <div class="card_title">
+          <span class="text_title">La Regenta I</span>
+        </div>
+        <div class="redline"></div>
+        <div class="card_row">
+          <span class="text">
+            <strong>Autor: </strong>Leopoldo Alas &laquo;Clarín&raquo;
+          </span>
+        </div>
+        <div class="blueline"></div>
+        <div class="card_row">
+          <span class="text"><strong>Editorial: </strong>Cátedra</span>
+        </div>
+        <div class="blueline"></div>
+        <div class="card_row">
+          <span class="text"><strong>Año: </strong>2004</span>
+        </div>
+        <div class="blueline"></div>
+        <div class="card_row">
+          <span class="text"><strong>ISBN: </strong>978-84-376-0454-1</span>
+        </div>
+        <div class="blueline"></div>
+        <div class="card_row"><span class="text"></span></div>
+        <div class="blueline"></div>
+        <div class="card_row"><span class="text"></span></div>
+        <div class="blueline"></div>
+      </div>
+    </body>
+    </html>
+
+  Observa el uso de posicionamientos absolutos en el código anterior para encajar correctamente las líneas de texto dentro de cada línea de la ficha. Por si no se aprecia, la línea más gruesa bajo "La Regenta I" es de color rojo y las demás son de color azul.
+  
+  Indica con qué selectores se deberían sustituir las marcas desde ``@1`` hasta ``@6`` para que el resultado se muestre igual que en el ejemplo de ficha anterior.
+
+  .. solución: @1=.blueline, @2=.text_title, @3=.redline, @4=.text, @5=.card_title, @6=.card_row
+  .. enero 2023
+
+.. -------
+
+
+.. admonition:: :problema-contador-estilo:`Problema`
+  :class: problema
+
+  Una librería de estilos de CSS establece una regla de la siguiente forma para todos los párrafos del documento:
+
+  .. code-block:: css
+
+    body p {
+      font-size: 1.2em;
+      font-family: 'Times New Roman', serif;
+      color: gray;
+      text-align: justify;
+    }
+
+  Aunque no queremos dejar de usar la librería, deseamos que los párrafos de nuestro documento aparezcan en otro color y lo conseguimos añadiendo a este un estilo tan sencillo como el siguiente:
+  
+  .. code-block:: css
+
+    p {
+      color: slategray @1;
+    }
+  
+  Indica con qué sustituir la marca ``@1`` para que los párrafos aparezcan en color ``slategray`` sin renunciar al resto de ventajas de la librería. 
+
+  .. solución: @1=!important
+  .. enero 2023
 
 
 
@@ -3248,7 +3565,491 @@ Programar el lado del cliente
 
 .. --------
 
+.. admonition:: :problema-contador-cliente:`Problema`
+  :class: problema
 
+  Considera el siguiente código JavaScript que define un componente web que muestra una barra verde sobre fondo gris que indica el porcentaje de progreso de una tarea:
+
+  .. code-block:: javascript
+
+    class ProgressBar extends HTMLElement {
+      constructor() {
+        super();
+        this._shadowRoot = this.attachShadow({ mode: 'open' });
+        this._shadowRoot.innerHTML = `
+          <style>
+            #container {
+              width: 300px;
+              height: 20px;
+              background-color: #ddd;
+              border-radius: 10px;
+            }
+            #bar {
+              height: 100%;
+              background-color: #0a0;
+              width: 0;
+              border-radius: 10px;
+            }
+          </style>
+          <div id="container">
+            <div id="bar"></div>
+          </div>
+        `;
+        this.$bar = @1.querySelector('#bar');
+      }
+      
+      static get observedAttributes() {
+        return [@2];
+      }
+      
+      attributeChangedCallback(name, oldValue, newValue) {
+        if (name === 'value') {
+          @3.style.@4 = `${newValue}%`;
+        }
+      }
+    
+    }
+
+    customElements.define('progress-bar', ProgressBar);
+
+  Para usar este componente, basta escribir el siguiente código HTML, que será complementado normalmente con código en JavaScript que vaya actualizando el valor del atributo ``value``:
+
+  .. code-block:: html
+
+      <progress-bar value="65"></progress-bar>
+
+  Sustituye ``@1``, ``@2``, ``3`` y ``@4`` por el código JavaScript necesario para que el componente web se comporte correctamente. 
+
+  .. solución: @1=this._shadowRoot, @2='value', @3=this.$bar, @4=width
+  .. enero 2023
+
+.. ------
+
+.. admonition:: :problema-contador-cliente:`Problema`
+  :class: problema
+
+  En el siguiente programa en JavaScript la función ``emit`` imprime por consola el valor pasado como parámetro tras realizar una serie de cálculos durante 1 segundo. El tiempo de ejecución de cualquier otro elemento del código es no nulo pero virtualmente infinitesimal. La función ``setTimeout`` es estándar de JavaScript y registra una función que se ejecutará asíncronamente después del número de milisegundos indicados como segundo parámetro. Indica con qué sustituir la marca ``@1`` para que se impriman por consola en este orden los valores 2, 3, 1, 0, 2, 3.
+
+  .. code-block:: javascript
+    :force:
+
+    let lista=@1
+
+    for(let i=0;i<lista.length;i++) {
+      if (lista[i]==1 || lista[i]==0) {
+        setTimeout(function() {emit(lista[i])}, 2000);
+        setTimeout(function() {emit(lista[i+1])}, 5000);  
+      }
+      else {
+        emit(lista[i]);
+      }
+    }
+
+  Observa que la variable ``lista`` es un *array* de números que serán impresos dentro del bucle, por lo que una posible respuesta (incorrecta) sería ``@1=[2,3,1,0,2,3]``.
+
+  .. solución: [1,2,0,3]
+  .. function emit(s) { function pause(milliseconds) { let dt = new Date(); while ((new Date())-dt<=milliseconds) { /* Do nothing */} } pause(1000); let dt= new Date(); let seconds= dt.getSeconds(); console.log(seconds+"': "+s); }
+  .. enero 2023
+
+.. ------
+
+.. admonition:: :problema-contador-cliente:`Problema`
+  :class: problema
+
+  Considera este código de JavaScript:
+
+  .. code-block:: javascript
+    :force:
+
+    const AnimalPrototype = {
+      count: 0,  // atributo estático
+      makeSound: function() {
+        console.log(`el ${this.name} (${this.id}/${AnimalPrototype.@1}) hace ${this.sound}`);
+      }
+    };
+    
+    function Animal(name, sound) {
+      this.name = name;
+      this.sound = sound;
+      this.id = ++Animal.prototype.count;
+    }
+    
+    Animal.@2 = @3;
+    
+    const animal1 = Object.@4(AnimalPrototype);
+    animal1.name = 'gato';
+    animal1.sound = 'miau';
+    animal1.id = ++Animal.prototype.count;
+    
+    const animal2 = @5 Animal('gallo', 'kikiriki');
+    
+    console.log(`total: ${Animal.prototype.count}`);
+    animal1.makeSound();
+    animal2.makeSound();
+
+  El código anterior crea dos objetos en JavaScript e imprime lo siguiente en consola:
+
+  .. code-block:: none
+    :force:
+
+    total: 2
+    el gato (1/2) hace miau
+    el gallo (2/2) hace kikiriki
+
+  Indica el valor de las marcas ``@1``, ``@2``, ``@3``, ``@4`` y ``@5`` para que el código anterior funcione como se ha indicado.
+
+  .. solución: @1=count, @2=prototype, @3=AnimalPrototype, @4=create, @5=new
+  .. enero 2023
+
+.. ------
+
+.. admonition:: :problema-contador-cliente:`Problema`
+  :class: problema
+
+  La sencilla aplicación web que se estudia en este problema muestra una cuenta atrás hasta la entrada del año 2024. Unos segundos después de alcanzado ese momento, el contador desaparece y se muestra un mensaje de felicitación con emojis. El fichero ``index.html`` es el siguiente:
+  
+  .. code-block:: html
+    :force:
+
+    <html>
+      <head>
+        <title>Countdown to a new year</title>
+        <link rel="stylesheet" href="style.css">
+      </head>
+      <body>
+        <script src="script.js"></script>
+        <div class="container">
+          <h1 id="headline">Countdown to a new year</h1>
+          <div id="countdown">
+            <ul>
+              <li><span id="days"></span>days</li>
+              <li><span id="hours"></span>Hours</li>
+              <li><span id="minutes"></span>Minutes</li>
+              <li><span id="seconds"></span>Seconds</li>
+            </ul>
+          </div>
+          <div id="content" class="emoji">
+            <span>🥳</span>
+            <span>🎉</span>
+            <span>🎂</span>
+          </div>
+        </div>
+      </body>
+    </html>
+
+  El fichero ``style.css`` es el siguiente:
+
+  .. code-block:: css
+    :force:
+
+     * {
+       box-sizing: border-box;
+       margin: 0;
+       padding: 0;
+     }
+
+     body {
+       background-color: #ffd54f;
+       font-family: Roboto, Ubuntu, sans-serif;
+     }
+
+     .container {
+       color: #333;
+       margin: 0 auto;
+       text-align: center;
+     }
+
+     h1 {
+       font-weight: normal;
+       letter-spacing: .125em;
+       text-transform: uppercase;
+     }
+
+     li {
+       display: inline-block;
+       font-size: 1.5em;
+       list-style-type: none;
+       padding: 1em;
+       text-transform: uppercase;
+     }
+
+     li span {
+       display: block;
+       font-size: 4.5em;
+     }
+
+     .emoji {
+       display: @1;
+       padding: 1em;
+     }
+
+  Finalmente, el fichero ``script.js`` es el siguiente:
+
+  .. code-block:: javascript
+    :force:
+
+    (function () {
+      const second = 1000;
+      const minute = second * 60;
+      const hour = minute * 60;
+      const day = hour * 24;
+      
+      newyear =  "Jan 1, 2024 00:00:30"; 
+
+      const countDown = new Date(newyear).getTime();
+      const x = setInterval(function() {    
+
+            const now = new Date().getTime();
+            const distance = countDown - now;  // milliseconds until new year
+
+            document.getElementById("days").innerText = 
+                    Math.floor(distance / (day));
+            document.getElementById("hours").innerText = 
+                    Math.floor((distance % (day)) / (hour));
+            document.getElementById("minutes").innerText = 
+                    Math.floor((distance % (hour)) / (minute));
+            document.getElementById("seconds").innerText = 
+                    Math.floor((distance % (minute)) / second);
+
+            // do something when date is reached
+            if (distance < 0) {
+              document.getElementById("headline").innerText = "Happy New Year!";
+              document.getElementById(@2).style.display = "none";
+              document.getElementById("content").style.display = @3;
+              clearInterval(x);
+            }
+            //seconds
+          }, 1000)
+      }());
+  
+  La función ``setInterval`` define una función que se ejecuta cada segundo y devuelve un identificador que se usa para detener estas llamadas cuando se alcanza la fecha límite a través de la función ``clearInterval``.
+
+  Indica el valor de las marcas ``@1``, ``@2`` y ``@3`` para que el código anterior funcione como se ha indicado.
+
+  .. solución: @1=none, @2="countdown", @3="block"
+  .. enero 2023
+
+.. ------
+
+
+.. admonition:: :problema-contador-cliente:`Problema`
+  :class: problema
+
+  El siguiente código permite jugar en el navegador a una versión muy simplificada del juego del dinosaurio al que se puede jugar en Google Chrome cuando no se puede mostrar la página solicitada por falta de conexión (pregunta al profesor por la dinámica de este juego si no lo conoces). En este caso, al hacer clic en el botón izquierdo del ratón o pulsar cualquier tecla, el dinosaurio se desplaza de golpe (es decir, no suavemente) a una posición superior y vuelve al nivel del suelo pasado medio segundo. Se crea un nuevo cactus cada 2 segundos que se va desplazando desde la derecha de la zona de juego a la izquierda; el dinosaurio, por otro lado, no se desplaza horizontalmente desde su posición inicial a la izquierda.
+
+  .. code-block:: javascript
+
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <title>Simple Dino Game</title>
+        <style>
+          #game {
+            position: relative;
+            height: 200px;
+            width: 500px;
+            border: 1px solid black;
+          }
+          .dino {
+            position: absolute;
+            height: 20px;
+            width: 20px;
+            font-size: 20px;
+            bottom: 0;
+            transform: scale(-1, 1); /* flip the dino to look right */
+          }
+          .cactus {
+            position: @1;
+            height: 20px;
+            width: 20px;
+            font-size: 20px;
+            bottom: 0;
+            right: -20px;
+          }
+        </style>
+      </head>
+      <body>
+        <div id="game">
+          <div class="dino" id="dino">🦖</div>
+        </div>
+
+        <script>
+          var dino = document.getElementById('dino');
+          var game = document.getElementById('game');
+          var jumping = 0;
+          var obstacles = [];
+
+          document.addEventListener('keydown', function (e) {jump();});
+          document.addEventListener('click', function (e) {jump();});
+
+          function jump() {
+            if (jumping == 0) {
+              jumping = 1;
+              dino.style.bottom = '100px';
+
+              setTimeout(function () {
+                @2 = '0';
+                jumping = 0;
+              }, 500);
+            }
+          }
+
+          // create new obstacles every 2 seconds
+          setInterval(function () {
+            var cactus = document.createElement('div');
+            cactus.classList.add('cactus');
+            cactus.style.right = '0';
+            cactus.textContent = "🌵";
+            game.@3(cactus);
+            
+            setInterval(function () {
+              if (cactus.textContent == "") return;
+              var boxPos = parseInt(dino.style.bottom);
+              var obsPos = parseInt(cactus.style.right);
+
+              if (obsPos > 480 && obsPos < 520 && boxPos <= 20) {
+                alert('Game Over!');
+                cactus.remove();
+                cactus.textContent = "";
+              } else {
+                cactus.style.right = obsPos + 2 + 'px';
+              }
+            }, 10);
+          }, 2000);
+        </script>
+      </body>
+    </html>
+    
+  Indica con qué sustituir las marcas ``@1``, ``@2`` y ``@3`` para que el juego funcione correctamente.
+
+  .. solución: @1=absolute, @2=dino.style.bottom, @3=appendChild
+  .. junio 2023
+
+.. ------
+
+.. admonition:: :problema-contador-cliente:`Problema`
+  :class: problema
+
+  Considera que el tiempo de ejecución de cualquier instrucción del siguiente código es no nulo pero virtualmente infinitesimal. La función ``setTimeout`` es estándar de JavaScript y registra una función que se ejecutará asíncronamente después del número de milisegundos indicados como segundo parámetro. Indica cuál es la salida del siguiente programa.
+
+  .. code-block:: javascript
+    :force:
+
+    function t(i) {
+      if (i<=0) {
+        return;
+      }
+      else if (i%2===1) {
+        setTimeout(() => console.log(i), 5000-i*100);
+      }
+      else {
+        setTimeout(() => console.log(i), 5000+i*100);
+      }
+      t(i-1)
+    }
+
+    t(1); t(6); t(1);
+
+  .. solución: 5,3,1,1,1,2,4,6
+  .. junio 2023
+
+.. ------
+
+.. admonition:: :problema-contador-cliente:`Problema`
+  :class: problema
+
+  Considera este código de JavaScript:
+
+  .. code-block:: javascript
+    :force:
+
+    function Character(name, house) {
+      this.name = name;
+      this.house = house;
+    }
+
+    Character.@1.sayHello = function() {
+      console.log(`Hello, my name is ${this.name} and I belong to ${this.house} house.`);
+    }
+
+    function Wizard(name, house, pet, wand) {
+      this.character = new Character(name, house);
+      this.pet = pet;
+      this.wand = wand;
+    }
+
+    Wizard.prototype.sayHello = function() {
+      this.character.sayHello();
+    }
+
+    Wizard.prototype.presentPet = function() {
+      console.log(`My pet is a ${this.pet.species}, and its name is ${this.pet.petName}.`);
+    }
+
+    Wizard.prototype.waveWand = function() {
+      console.log(`Waving my ${this.wand} wand!`);
+    }
+
+    function Pet(petName, species) {
+      this.petName = petName;
+      this.species = species;
+    }
+
+    @2.hogwartsSchool = 'Hogwarts School of Witchcraft and Wizardry'; // static property
+
+    Pet.prototype.makeSound = function() {
+      if (this.species === 'owl') {
+        console.log('Who who!');
+      } else if (this.species === 'cat') {
+        console.log('Meow!');
+      } else if (this.species === 'toad') {
+        console.log('Ribbit!');
+      } else {
+        console.log('I make an unknown sound!');
+      }
+    }
+
+    var hedwig = new Pet('Hedwig', 'owl');
+    var harry = new Wizard('Harry Potter', 'Gryffindor', hedwig, 'Holly, 11", phoenix feather');
+
+    harry.sayHello();
+    harry.presentPet();
+    harry.waveWand();
+    console.log(`I study at ${Wizard.hogwartsSchool}.`);
+    hedwig.makeSound();
+
+    var crookshanks = new Pet('Crookshanks', 'cat');
+    var hermione = new Wizard('Hermione Granger', 'Gryffindor', crookshanks, 'Vine wood, 10¾", dragon heartstring');
+
+    hermione.sayHello();
+    hermione.presentPet();
+    hermione.waveWand();
+    console.log(`I study at ${Wizard.hogwartsSchool}.`);
+    crookshanks.makeSound();
+
+  El código anterior crea diversos objetos en JavaScript e imprime lo siguiente en consola:
+
+  .. code-block:: none
+    :force:
+
+    Hello, my name is Harry Potter and I belong to Gryffindor house.
+    My pet is a owl, and its name is Hedwig.
+    Waving my Holly, 11", phoenix feather wand!
+    I study at Hogwarts School of Witchcraft and Wizardry.
+    Who who!
+    Hello, my name is Hermione Granger and I belong to Gryffindor house.
+    My pet is a cat, and its name is Crookshanks.
+    Waving my Vine wood, 10¾", dragon heartstring wand!
+    I study at Hogwarts School of Witchcraft and Wizardry.
+    Meow!
+
+
+  Indica el valor de las marcas ``@1`` y ``@2`` para que el código anterior funcione como se ha indicado.
+
+  .. solución: @1=prototype, @2=Wizard
+  .. junio 2023
+
+.. -------
 
 Acceso a servicios web de terceros
 ----------------------------------
@@ -3587,6 +4388,161 @@ Acceso a servicios web de terceros
 
 .. --------
 
+.. admonition:: :problema-contador-servicios:`Problema`
+  :class: problema
+
+  El siguiente código en JavaScript crea tres objetos de tipo promesa y después utiliza el método ``Promise.all`` para ejecutarlas todas a la vez. Este método, ya definido en la clase ``Promise`` de la librería de JavaScript, devuelve una promesa que se resuelve (esto es, se cumple) cuando todas las promesas pasadas en un *array* como argumento se han resuelto. Si todas las promesas se cumplen, la promesa devuelta por ``Promise.all`` se cumple con un *array* que contiene los valores de las promesas cumplidas. Si alguna de las promesas se rechaza, la promesa devuelta por ``Promise.all`` se rechaza con el motivo de la promesa que se rechazó; en el caso de que se rechace más de una promesa, la promesa devuelta por ``Promise.all`` se rechaza con el motivo de la primera promesa que se haya rechazado.
+
+  .. code-block:: javascript
+
+    const p1 = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (flag)
+          resolve(1);
+        else
+          @1(1);
+      }, 5000);
+    });
+    
+    const p2 = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (flag) 
+          @2(2);
+        else
+          @3(2);
+      }, 3000);
+    });
+    
+    const p3 = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(3);
+      }, 2000);
+    });
+
+    Promise.all([p3, @4, p1, p3]).then(values => {
+      values.forEach(value => console.log(value));
+    }).catch(console.log); 
+
+  Indica con qué sustituir las marcas ``@1``, ``@2``, ``@3`` y ``@4`` para que el código anterior imprima solo un ``2`` por consola cuando la variable global ``flag`` sea verdadera y más de un valor cuando la variable ``flag`` sea falsa.
+
+  .. solución: @1=resolve, @2=reject, @3=resolve, @4=p2
+  .. enero 2023
+
+.. ------
+
+.. admonition:: :problema-contador-servicios:`Problema`
+  :class: problema
+
+  La respuesta de este problema tiene que ver con la función ``Promise.all`` discutida en el problema anterior, aunque no es necesario haber resuelto aquel para resolver este problema. Se propone la siguiente implementación de la función ``all`` (llamada aquí ``my_all``), que aunque presenta alguna carencias respecto a la implementación de la librería de JavaScript, es suficiente para funcionar correctamente en el caso de uso del problema anterior:
+
+  .. code-block:: javascript
+
+    function my_all(promises) {
+      return new Promise((resolve, reject) => {
+        let resolvedCounter = 0;
+        let resolvedValues = [ ];
+        for (let i = 0; i < promises.length; i++) {
+          promises[i]
+          .then(value => {
+            resolvedCounter++;
+            resolvedValues[i] = @1;
+            if (resolvedCounter == @2) {
+              resolve(resolvedValues);
+            }
+          })
+          .catch(value => reject(value));
+        }
+      });
+    }
+
+  Indica con qué sustituir ``@1`` y ``@2`` para que el código anterior corresponda a una implementación adecuada de ``Promise.all``.
+
+  .. solución: @1=value, @2=promises.length
+  .. enero 2023
+
+.. ------
+
+.. admonition:: :problema-contador-servicios:`Problema`
+  :class: problema
+
+  El siguiente código en JavaScript crea tres objetos de tipo promesa y después utiliza el método *inventado* ``Promise.allBefore`` (que no existe en el API oficial de la clase ``Promise``) para activarlas todas a la vez. Este método devuelve una promesa que se resuelve (esto es, se cumple) cuando todas las promesas pasadas en un *array* en su primer argumento se han resuelto antes de los tiempos indicados para cada una en la lista del segundo argumento. Si todas las promesas se cumplen, la promesa devuelta por ``Promise.allBefore`` se cumple con un *array* que contiene los valores de las promesas cumplidas. Si alguna de las promesas se rechaza, la promesa devuelta por ``Promise.allBefore`` se rechaza con el motivo de la promesa que se rechazó; en el caso de que se rechace más de una promesa, la promesa devuelta por ``Promise.allBefore`` se rechaza con el motivo de la primera promesa que se haya rechazado.
+
+  .. code-block:: javascript
+
+    let promise1 = new Promise((@1, reject) => {
+        setTimeout(@2, 2000, '⛅');
+    });
+
+    let promise2 = new Promise((@1, reject) => {
+        setTimeout(@2, 1000, '🌞');
+    });
+
+    let promise3 = new Promise((@1, reject) => {
+        setTimeout(@2, 3000, '🌙');
+    });
+
+    Promise.allBefore([promise1, promise2, promise3], [2500, 1500, 3500])
+        .then((values) => {
+            console.log(values);
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+
+  Observa que la promesa devuelta por la llamada a ``allBefore`` anterior se termina cumpliendo, pero no sería así si cambiáramos ``2000`` por ``4000``. 
+
+  Los argumentos de ``setTimeOut`` del tercero en adelante son argumentos que se pasan a la función que se ejecuta cuando se cumple el tiempo indicado.
+
+  Indica con qué sustituir las marcas ``@1`` y ``@2`` para que el código anterior imprima, en este orden, los emojis 🌞 ⛅ 🌙.
+
+  .. solución: @1=resolve, @2=resolve [en realidad @1=@2 y @1 identificador no reservado]
+  .. junio 2023
+
+.. ------
+
+.. admonition:: :problema-contador-servicios:`Problema`
+  :class: problema
+
+  La respuesta de este problema tiene que ver con la función ``Promise.allBefore`` discutida en el problema anterior, aunque no es necesario haber resuelto aquel para resolver este problema. Se propone la siguiente implementación de la función ``allBefore``, que funciona correctamente en el caso de uso del problema anterior:
+
+  .. code-block:: javascript
+    
+    Promise.allBefore = function (promises, milliseconds) {
+        return new Promise((resolve, reject) => {
+            let results = [];
+            let count = 0;
+
+            if (promises.length !== milliseconds.length) {
+                throw new Error('Error: los arrays no tienen la misma longitud');
+            }
+
+            promises.forEach((promise, index) => {
+                let timer = setTimeout(() => {
+                    @1(`La Promesa en el índice ${index} no se resolvió en el tiempo especificado.`);
+                }, @2);
+
+                promise.then(result => {
+                    clearTimeout(timer);
+                    results[index] = result;
+                    count++;
+
+                    if (@3) {
+                        resolve(results);
+                    }
+                }).catch(error => {
+                    clearTimeout(timer);
+                    reject(error);
+                });
+            });
+        });
+    };
+
+  Indica con qué sustituir ``@1``, ``@2`` y ``@3`` para que el código anterior corresponda a una implementación adecuada de ``Promise.allBefore``.
+
+  .. solución: @1=reject, @2=milliseconds[index], @3=count===promises.length
+  .. junio 2023
+
+.. ------
 
 Componentes web
 ---------------
@@ -3846,6 +4802,104 @@ Componentes web
 
 .. --------
 
+
+.. admonition:: :problema-contador-componentes:`Problema`
+  :class: problema
+
+  Considera el siguiente código que define e instancia un componente web que muestra tres emojis diferentes y un contador bajo cada uno de ellos que se incrementa al hacer clic sobre el emoji correspondiente. El contador se inicializa a cero salvo que se dé un valor al atributo ``init`` al instanciar el componente.
+
+  .. code-block:: javascript
+
+    <!DOCTYPE html>
+    <html>
+      <body>
+        <emoji-reaction init="2"></emoji-reaction>
+
+        <script>
+          class EmojiReaction extends HTMLElement {
+            constructor() {
+              super();
+
+              this.sadCount = this.getAttribute('init') @1 0;
+              this.happyCount = this.getAttribute('init') @1 0;
+              this.laughCount = this.getAttribute('init') @1 0;
+
+              this.emojiMap = {
+                '😞': this.sadCount,
+                '😀': this.happyCount,
+                '😂': this.laughCount,
+              };
+
+              this.shadow = this.attachShadow({ mode: 'open' });
+            }
+
+            connectedCallback() {
+              this.render();
+              @2;
+            }
+
+            render() {
+              this.shadow.innerHTML = `
+                <style>
+                  .emoji-container {
+                    display: flex;
+                    justify-content: space-around;
+                    align-items: center;
+                    padding: 1em;
+                    background-color: #f0f0f0;
+                    border-radius: 1em;
+                    box-shadow: 0px 0px 10px rgba(0,0,0,0.15);
+                  }
+                  .emoji-item {
+                    text-align: center;
+                    cursor: pointer;
+                  }
+                </style>
+                <div class="emoji-container">
+                  ${Object.entries(this.emojiMap)
+                    .map(
+                      ([emoji, count]) =>
+                        `<div @3>
+                          <div class="emoji">${emoji}</div>
+                          <div class="count">${count}</div>
+                        </div>`
+                    )
+                    .join('')}
+                </div>
+              `;
+            }
+
+            registerEventListeners() {
+              this.shadow.querySelectorAll('.emoji-item').forEach((item) => {
+                item.addEventListener('click', (e) => {
+                  const emoji = e.currentTarget.querySelector('.emoji').textContent;
+                  this.incrementCount(emoji);
+                });
+              });
+            }
+
+            incrementCount(emoji) {
+              this.emojiMap[emoji]@4;
+              this.render();
+              this.registerEventListeners();
+            }
+          }
+
+          window.customElements.define('emoji-reaction', EmojiReaction);
+        </script>
+      </body>
+    </html>
+
+  La función ``Object.entries`` devuelve un *array* de *arrays* con las parejas clave-valor de un objeto. Por ejemplo, ``Object.entries({ a: 1, b: 2 })`` devuelve ``[['a', 1], ['b', 2]]``. La función ``join`` une los elementos de un *array* en una cadena separándolos por el carácter que se le pasa como argumento. Por ejemplo, ``['a', 'b', 'c'].join('-')`` devuelve ``'a-b-c'``. La función ``map`` aplica una función a cada elemento de un *array* y devuelve un *array* con los resultados. Por ejemplo, ``[1, 2, 3].map((x) => x * 2)`` devuelve ``[2, 4, 6]``. 
+  
+  No necesitas conocer esto para resolver este problema, pero la propiedad ``display:flex`` de CSS permite definir un contenedor flexible que alinea sus elementos hijos de forma horizontal o vertical; la propiedad ``justify-content: space-around`` permite distribuir los elementos hijos de un contenedor flexible de forma que haya el mismo espacio entre ellos; y la propiedad  ``align-items: center`` permite alinear verticalmente los elementos hijos de un contenedor flexible.
+
+  Sustituye ``@1``, ``@2``, ``3`` y ``@4`` por las cadenas necesarias para que el componente web se comporte correctamente. 
+
+  .. solución: @1= ||, @2=this.registerEventListeners(), @3=class="emoji-item", @4=++
+  .. junio 2023
+
+.. ------
 
 Implementación de servicios web
 -------------------------------
@@ -4297,5 +5351,42 @@ Computación en la nube
 
 .. -------
 
+
+.. admonition:: :problema-contador-nube:`Problema`
+  :class: problema
+
+  Tenemos toda una serie de aplicaciones desplegadas en Google Cloud Platform, algunas de las cuales almacenan ficheros en un *bucket* de Cloud Storage. Queremos ahora programar un servicio web que inserte en una tabla de una base de datos MySQL alojada en Cloud SQL la hora actual y el número de elementos almacenados en este momento en dicho *bucket*. Indica cuál o cuáles de las siguientes opciones constituye una posibilidad viable para ello, independientemente de su eficiencia o coste. Si ninguna lo es, indica *ninguna* como respuesta.
+
+  1. Podríamos desplegar en Google App Engine una aplicación escrita en Java, que es uno de los lenguajes soportados por la plataforma, que obtenga mediante el API de Cloud Storage el número de elementos almacenados en el *bucket* y se conecte después a la base de datos de Cloud SQL para actualizar la tabla correspondiente. La aplicación expondría un servicio web que se ejecutaría en respuesta a una petición HTTP.
+  2. Podríamos desarrollar una aplicación en Python que se ejecute en una instancia de Compute Engine y que se conecte a la base de datos de Cloud SQL y a Cloud Storage de forma similar a la alojada en Google App Engine. La instancia tendría los puertos necesarios abiertos para que se pudiera realizar peticiones HTTP a ella desde otras máquinas.
+  3. Podríamos crear una función de Cloud Functions en JavaScript que se ejecute en respuesta a una petición web concreta. La función podría conectarse mediante el API correspondiente a Cloud Storage para obtener el número de elementos y a Cloud SQL para actualizar la base de datos.
+  4. Podríamos escribir un fichero ``Dockerfile`` que cree una imagen que permita lanzar contenedores que incluyan un servidor PHP que ofrezca un servicio web que se ejecute en respuesta a una petición HTTP. El contenedor podría conectarse a la base de datos de Cloud SQL y a Cloud Storage mediante el API correspondiente. Podríamos utilizar Cloud Build para crear un flujo de integración que se ejecute cada vez que se realice un cambio en el código de nuestra aplicación de PHP. De esta manera, tendríamos siempre lista una imagen que podría ser desplegada en Cloud Run, que se encargará de crear y gestionar automáticamente los contenedores necesarios para ejecutar nuestra aplicación, así como proporcionar una URL pública para acceder a ella.
+
+  .. solución: 1, 2, 3, 4
+  .. enero 2023
+
+.. ------
+
+.. admonition:: :problema-contador-nube:`Problema`
+  :class: problema
+
+  Indica con qué sustituir ``@1`` y ``@2`` en el siguiente fichero ``Dockerfile`` para que al usarlo con el programa ``docker`` se cree una imagen que permite lanzar contenedores que despliegan la aplicación web de Node.js formada por los ficheros ``index.html`` y ``app.js`` en el puerto 8080.
+
+    .. code-block:: docker
+      :force:
+
+      FROM node:14-alpine
+      WORKDIR /app
+      COPY package*.json ./
+      @1 npm install
+      @2 index.html .
+      @2 app.js .
+      EXPOSE 8080
+      CMD [ "npm", "start" ]
+  
+  .. solución: @1=RUN, @2=COPY
+  .. junio 2023
+
+.. ------
 
 .. PENDIENTE: añadir problemas más elaborados del tipo cada oveja con su pareja, por ejemplo.
