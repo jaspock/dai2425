@@ -1315,6 +1315,279 @@
 </div>
 <p>Indica con qué sustituir <code class="docutils literal notranslate"><span class="pre">&#64;1</span></code> y <code class="docutils literal notranslate"><span class="pre">&#64;2</span></code> para conseguir el efecto deseado. No es relevante para este problema, pero poner <code class="docutils literal notranslate"><span class="pre">display</span></code> a <code class="docutils literal notranslate"><span class="pre">inline-block</span></code> permite que la animación tenga realmente lugar porque estas no son posibles en elementos <code class="docutils literal notranslate"><span class="pre">inline</span></code>. Por otro lado, el valor de <code class="docutils literal notranslate"><span class="pre">transform-origin</span></code> se ha ajustado para que la mano rote desde la muñeca y no desde el punto central.</p>
 </div>
+<div class="problema admonition">
+<p class="admonition-title"><span class="problema-contador-estilo">Problema</span></p>
+<p>Considera el siguiente fragmento de un documento HTML:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;container&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;inner-box1&quot;</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;inner-box2&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>Considera también los siguientes estilos de CSS:</p>
+<div class="highlight-css notranslate"><div class="highlight"><pre><span></span><span class="o">*</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">box-sizing</span><span class="p">:</span><span class="w"> </span><span class="kc">content-box</span><span class="p">;</span>
+<span class="w">  </span><span class="k">margin</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">  </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">.</span><span class="nc">container</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">position</span><span class="p">:</span><span class="w"> </span><span class="kc">relative</span><span class="p">;</span>
+<span class="w">  </span><span class="k">width</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">  </span><span class="k">height</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">  </span><span class="k">background-color</span><span class="p">:</span><span class="w"> </span><span class="mh">#777</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">.</span><span class="nc">inner-box1</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">position</span><span class="p">:</span><span class="w"> </span><span class="o">@</span><span class="mi">1</span><span class="p">;</span>
+<span class="w">  </span><span class="k">top</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">  </span><span class="k">right</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">  </span><span class="k">width</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">  </span><span class="k">height</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">  </span><span class="k">background-color</span><span class="p">:</span><span class="w"> </span><span class="mh">#aaa</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">.</span><span class="nc">inner-box2</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">position</span><span class="p">:</span><span class="w"> </span><span class="kc">absolute</span><span class="p">;</span>
+<span class="w">  </span><span class="k">bottom</span><span class="p">:</span><span class="w"> </span><span class="o">@</span><span class="mi">2</span><span class="p">;</span>
+<span class="w">  </span><span class="k">left</span><span class="p">:</span><span class="w"> </span><span class="o">@</span><span class="mi">3</span><span class="p">;</span>
+<span class="w">  </span><span class="k">width</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">  </span><span class="k">height</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">  </span><span class="k">background-color</span><span class="p">:</span><span class="w"> </span><span class="mh">#ccc</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>El código anterior corresponde a tres cuadrados anidados. El más grande tiene de lado 200 píxeles. El cuadrado mediano está centrado en el grande y su lado tiene la mitad de longitud del cuadrado grande. El tercer cuadrado está centrado en el cuadrado mediano y su lado tiene la mitad de longitud que este. Indica el código CSS por el que es necesario sustituir las marcas <code class="docutils literal notranslate"><span class="pre">&#64;1</span></code>, <code class="docutils literal notranslate"><span class="pre">&#64;2</span></code> y <code class="docutils literal notranslate"><span class="pre">&#64;3</span></code> para que el fragmento HTML se muestre como sigue:</p>
+<div id="problema-cuadrados-dentro">
+<script>
+  var root = document.querySelector('#problema-cuadrados-dentro').attachShadow({mode:'open'});
+  root.innerHTML = `
+    <style>
+    * {
+      box-sizing: content-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      background-color: #777;
+    }
+
+    .inner-box1 {
+      position: absolute;
+      top: 50px;
+      right: 50px;
+      width: 100px;
+      height: 100px;
+      background-color: #aaa;
+    }
+
+    .inner-box2 {
+      position: absolute;
+      bottom: 25px;
+      left: 25px;
+      width: 50px;
+      height: 50px;
+      background-color: #ccc;
+    }
+    </style>
+    <div class="container">
+      <div class="inner-box1">
+        <div class="inner-box2"></div>
+      </div>
+    </div>`;
+</script>
+</div><p>Considera que no hay otros estilos definidos que puedan entrar en conflicto con anteriores.</p>
+</div>
+<div class="problema admonition">
+<p class="admonition-title"><span class="problema-contador-estilo">Problema</span></p>
+<p>Queremos mostrar en el navegador fichas de libros que imitan las de cartulina que se usaban antaño en los ficheros de las bibliotecas:</p>
+<div id="problema-ficha-regenta">
+<script>
+  var root = document.querySelector('#problema-ficha-regenta').attachShadow({mode:'open'});
+  root.innerHTML = `
+      <style>
+        @import url('https://fonts.googleapis.com/css2?family=Seaweed+Script&display=swap');
+        .card {
+          background: floralwhite;
+          box-shadow: 6px 6px 5px gray;
+          width: 480px;
+          height: 280px;
+          padding: 5px;
+        }
+        .blueline {
+          width: 100%;
+          background-color: steelblue;
+          height: 2px;
+        }
+        .text_title {
+          font-family: 'Seaweed Script', cursive;
+          font-size: 2em;
+          bottom: 0;
+          position: absolute;
+          font-weight: bold;
+        }
+        .redline {
+          width: 100%;
+          background-color: red;
+          height: 4px;
+        }
+        .text {
+          font-family: 'Seaweed Script', cursive;
+          font-size: 1.2em;
+          bottom: 0;
+          position: absolute;
+        }
+        .card_title {
+          height: 60px;
+          width: 100%;
+          position: relative;
+        }
+        .card_row {
+          height: 30px;
+          width: 100%;
+          position: relative;
+        }
+      </style>
+      <div class="card">
+        <div class="card_title">
+          <span class="text_title">La Regenta I</span>
+        </div>
+        <div class="redline"></div>
+        <div class="card_row">
+          <span class="text">
+            <strong>Autor: </strong>Leopoldo Alas &laquo;Clarín&raquo;
+          </span>
+        </div>
+        <div class="blueline"></div>
+        <div class="card_row">
+          <span class="text"><strong>Editorial: </strong>Cátedra</span>
+        </div>
+        <div class="blueline"></div>
+        <div class="card_row">
+          <span class="text"><strong>Año: </strong>2004</span>
+        </div>
+        <div class="blueline"></div>
+        <div class="card_row">
+          <span class="text"><strong>ISBN: </strong>978-84-376-0454-1</span>
+        </div>
+        <div class="blueline"></div>
+        <div class="card_row"><span class="text"></span></div>
+        <div class="blueline"></div>
+        <div class="card_row"><span class="text"></span></div>
+        <div class="blueline"></div>
+      </div>`
+</script>
+</div><p>El siguiente código en HTML y CSS permite mostrar una ficha como la anterior, pero la mayoría de los selectores han desaparecido de la hoja de estilo:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;es&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>La Regenta I<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+<span class="w">    </span><span class="p">@</span><span class="k">import</span><span class="w"> </span><span class="nt">url</span><span class="o">(</span><span class="s1">&#39;https://fonts.googleapis.com/css2?family=Seaweed+Script&amp;display=swap&#39;</span><span class="o">)</span><span class="p">;</span>
+<span class="w">    </span><span class="p">.</span><span class="nc">card</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">background</span><span class="p">:</span><span class="w"> </span><span class="kc">floralwhite</span><span class="p">;</span>
+<span class="w">      </span><span class="k">box-shadow</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="kt">px</span><span class="w"> </span><span class="mi">6</span><span class="kt">px</span><span class="w"> </span><span class="mi">5</span><span class="kt">px</span><span class="w"> </span><span class="kc">gray</span><span class="p">;</span>
+<span class="w">      </span><span class="k">width</span><span class="p">:</span><span class="w"> </span><span class="mi">480</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">      </span><span class="k">height</span><span class="p">:</span><span class="w"> </span><span class="mi">280</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">      </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="p">@</span><span class="k">1</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">width</span><span class="o">:</span><span class="w"> </span><span class="nt">100</span><span class="o">%;</span>
+<span class="w">      </span><span class="nt">background-color</span><span class="o">:</span><span class="w"> </span><span class="nt">steelblue</span><span class="o">;</span>
+<span class="w">      </span><span class="nt">height</span><span class="o">:</span><span class="w"> </span><span class="nt">2px</span><span class="o">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="p">@</span><span class="k">2</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">font-family</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Seaweed Script&#39;</span><span class="o">,</span><span class="w"> </span><span class="nt">cursive</span><span class="o">;</span>
+<span class="w">      </span><span class="nt">font-size</span><span class="o">:</span><span class="w"> </span><span class="nt">2em</span><span class="o">;</span>
+<span class="w">      </span><span class="nt">bottom</span><span class="o">:</span><span class="w"> </span><span class="nt">0</span><span class="o">;</span>
+<span class="w">      </span><span class="nt">position</span><span class="o">:</span><span class="w"> </span><span class="nt">absolute</span><span class="o">;</span>
+<span class="w">      </span><span class="nt">font-weight</span><span class="o">:</span><span class="w"> </span><span class="nt">bold</span><span class="o">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="p">@</span><span class="k">3</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">width</span><span class="o">:</span><span class="w"> </span><span class="nt">100</span><span class="o">%;</span>
+<span class="w">      </span><span class="nt">background-color</span><span class="o">:</span><span class="w"> </span><span class="nt">red</span><span class="o">;</span>
+<span class="w">      </span><span class="nt">height</span><span class="o">:</span><span class="w"> </span><span class="nt">4px</span><span class="o">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="p">@</span><span class="k">4</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">font-family</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Seaweed Script&#39;</span><span class="o">,</span><span class="w"> </span><span class="nt">cursive</span><span class="o">;</span>
+<span class="w">      </span><span class="nt">font-size</span><span class="o">:</span><span class="w"> </span><span class="nt">1</span><span class="p">.</span><span class="nc">2em</span><span class="o">;</span>
+<span class="w">      </span><span class="nt">bottom</span><span class="o">:</span><span class="w"> </span><span class="nt">0</span><span class="o">;</span>
+<span class="w">      </span><span class="nt">position</span><span class="o">:</span><span class="w"> </span><span class="nt">absolute</span><span class="o">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="p">@</span><span class="k">5</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">height</span><span class="o">:</span><span class="w"> </span><span class="nt">60px</span><span class="o">;</span>
+<span class="w">      </span><span class="nt">width</span><span class="o">:</span><span class="w"> </span><span class="nt">100</span><span class="o">%;</span>
+<span class="w">      </span><span class="nt">position</span><span class="o">:</span><span class="w"> </span><span class="nt">relative</span><span class="o">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="p">@</span><span class="k">6</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">height</span><span class="o">:</span><span class="w"> </span><span class="nt">30px</span><span class="o">;</span>
+<span class="w">      </span><span class="nt">width</span><span class="o">:</span><span class="w"> </span><span class="nt">100</span><span class="o">%;</span>
+<span class="w">      </span><span class="nt">position</span><span class="o">:</span><span class="w"> </span><span class="nt">relative</span><span class="o">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;card&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;card_title&quot;</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;text_title&quot;</span><span class="p">&gt;</span>La Regenta I<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;redline&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;card_row&quot;</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;text&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">strong</span><span class="p">&gt;</span>Autor: <span class="p">&lt;/</span><span class="nt">strong</span><span class="p">&gt;</span>Leopoldo Alas <span class="ni">&amp;laquo;</span>Clarín<span class="ni">&amp;raquo;</span>
+      <span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;blueline&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;card_row&quot;</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;text&quot;</span><span class="p">&gt;&lt;</span><span class="nt">strong</span><span class="p">&gt;</span>Editorial: <span class="p">&lt;/</span><span class="nt">strong</span><span class="p">&gt;</span>Cátedra<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;blueline&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;card_row&quot;</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;text&quot;</span><span class="p">&gt;&lt;</span><span class="nt">strong</span><span class="p">&gt;</span>Año: <span class="p">&lt;/</span><span class="nt">strong</span><span class="p">&gt;</span>2004<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;blueline&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;card_row&quot;</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;text&quot;</span><span class="p">&gt;&lt;</span><span class="nt">strong</span><span class="p">&gt;</span>ISBN: <span class="p">&lt;/</span><span class="nt">strong</span><span class="p">&gt;</span>978-84-376-0454-1<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;blueline&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;card_row&quot;</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;text&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;blueline&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;card_row&quot;</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;text&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;blueline&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>Observa el uso de posicionamientos absolutos en el código anterior para encajar correctamente las líneas de texto dentro de cada línea de la ficha. Por si no se aprecia, la línea más gruesa bajo «La Regenta I» es de color rojo y las demás son de color azul.</p>
+<p>Indica con qué selectores se deberían sustituir las marcas desde <code class="docutils literal notranslate"><span class="pre">&#64;1</span></code> hasta <code class="docutils literal notranslate"><span class="pre">&#64;6</span></code> para que el resultado se muestre igual que en el ejemplo de ficha anterior.</p>
+</div>
+<div class="problema admonition">
+<p class="admonition-title"><span class="problema-contador-estilo">Problema</span></p>
+<p>Una librería de estilos de CSS establece una regla de la siguiente forma para todos los párrafos del documento:</p>
+<div class="highlight-css notranslate"><div class="highlight"><pre><span></span><span class="nt">body</span><span class="w"> </span><span class="nt">p</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="mf">1.2</span><span class="kt">em</span><span class="p">;</span>
+<span class="w">  </span><span class="k">font-family</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;Times New Roman&#39;</span><span class="p">,</span><span class="w"> </span><span class="kc">serif</span><span class="p">;</span>
+<span class="w">  </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="kc">gray</span><span class="p">;</span>
+<span class="w">  </span><span class="k">text-align</span><span class="p">:</span><span class="w"> </span><span class="kc">justify</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Aunque no queremos dejar de usar la librería, deseamos que los párrafos de nuestro documento aparezcan en otro color y lo conseguimos añadiendo a este un estilo tan sencillo como el siguiente:</p>
+<div class="highlight-css notranslate"><div class="highlight"><pre><span></span><span class="nt">p</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="kc">slategray</span><span class="w"> </span><span class="o">@</span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Indica con qué sustituir la marca <code class="docutils literal notranslate"><span class="pre">&#64;1</span></code> para que los párrafos aparezcan en color <code class="docutils literal notranslate"><span class="pre">slategray</span></code> sin renunciar al resto de ventajas de la librería.</p>
+</div>
 </section>
 <section id="programar-el-lado-del-cliente">
 <h2><span class="section-number">8.3. </span>Programar el lado del cliente<a class="headerlink" href="#programar-el-lado-del-cliente" title="Enlace permanente a este encabezado"></a></h2>
@@ -2556,6 +2829,414 @@
 </div>
 <p>Indica en qué coordenadas <em>(x,y)</em> se encuentra el píxel de la esquina inferior derecha del cuadrado rojo cuando el puntero del ratón está en las coordenadas <em>(40,50)</em>.</p>
 </div>
+<div class="problema admonition">
+<p class="admonition-title"><span class="problema-contador-cliente">Problema</span></p>
+<p>Considera el siguiente código JavaScript que define un componente web que muestra una barra verde sobre fondo gris que indica el porcentaje de progreso de una tarea:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span>class ProgressBar extends HTMLElement {
+  constructor() {
+    super();
+    this._shadowRoot = this.attachShadow({ mode: &#39;open&#39; });
+    this._shadowRoot.innerHTML = `
+      &lt;style&gt;
+        #container {
+          width: 300px;
+          height: 20px;
+          background-color: #ddd;
+          border-radius: 10px;
+        }
+        #bar {
+          height: 100%;
+          background-color: #0a0;
+          width: 0;
+          border-radius: 10px;
+        }
+      &lt;/style&gt;
+      &lt;div id=&quot;container&quot;&gt;
+        &lt;div id=&quot;bar&quot;&gt;&lt;/div&gt;
+      &lt;/div&gt;
+    `;
+    this.$bar = @1.querySelector(&#39;#bar&#39;);
+  }
+
+  static get observedAttributes() {
+    return [@2];
+  }
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (name === &#39;value&#39;) {
+      @3.style.@4 = `${newValue}%`;
+    }
+  }
+
+}
+
+customElements.define(&#39;progress-bar&#39;, ProgressBar);
+</pre></div>
+</div>
+<p>Para usar este componente, basta escribir el siguiente código HTML, que será complementado normalmente con código en JavaScript que vaya actualizando el valor del atributo <code class="docutils literal notranslate"><span class="pre">value</span></code>:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">progress-bar</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;65&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">progress-bar</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>Sustituye <code class="docutils literal notranslate"><span class="pre">&#64;1</span></code>, <code class="docutils literal notranslate"><span class="pre">&#64;2</span></code>, <code class="docutils literal notranslate"><span class="pre">3</span></code> y <code class="docutils literal notranslate"><span class="pre">&#64;4</span></code> por el código JavaScript necesario para que el componente web se comporte correctamente.</p>
+</div>
+<div class="problema admonition">
+<p class="admonition-title"><span class="problema-contador-cliente">Problema</span></p>
+<p>En el siguiente programa en JavaScript la función <code class="docutils literal notranslate"><span class="pre">emit</span></code> imprime por consola el valor pasado como parámetro tras realizar una serie de cálculos durante 1 segundo. El tiempo de ejecución de cualquier otro elemento del código es no nulo pero virtualmente infinitesimal. La función <code class="docutils literal notranslate"><span class="pre">setTimeout</span></code> es estándar de JavaScript y registra una función que se ejecutará asíncronamente después del número de milisegundos indicados como segundo parámetro. Indica con qué sustituir la marca <code class="docutils literal notranslate"><span class="pre">&#64;1</span></code> para que se impriman por consola en este orden los valores 2, 3, 1, 0, 2, 3.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span><span class="w"> </span><span class="nx">lista</span><span class="o">=</span><span class="err">@</span><span class="mf">1</span>
+
+<span class="k">for</span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">i</span><span class="o">=</span><span class="mf">0</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;</span><span class="nx">lista</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">lista</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="o">==</span><span class="mf">1</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">lista</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="o">==</span><span class="mf">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="nx">emit</span><span class="p">(</span><span class="nx">lista</span><span class="p">[</span><span class="nx">i</span><span class="p">])},</span><span class="w"> </span><span class="mf">2000</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="nx">emit</span><span class="p">(</span><span class="nx">lista</span><span class="p">[</span><span class="nx">i</span><span class="o">+</span><span class="mf">1</span><span class="p">])},</span><span class="w"> </span><span class="mf">5000</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">emit</span><span class="p">(</span><span class="nx">lista</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Observa que la variable <code class="docutils literal notranslate"><span class="pre">lista</span></code> es un <em>array</em> de números que serán impresos dentro del bucle, por lo que una posible respuesta (incorrecta) sería <code class="docutils literal notranslate"><span class="pre">&#64;1=[2,3,1,0,2,3]</span></code>.</p>
+</div>
+<div class="problema admonition">
+<p class="admonition-title"><span class="problema-contador-cliente">Problema</span></p>
+<p>Considera este código de JavaScript:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">AnimalPrototype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">count</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w">  </span><span class="c1">// atributo estático</span>
+<span class="w">  </span><span class="nx">makeSound</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`el </span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="sb"> (</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">id</span><span class="si">}</span><span class="sb">/</span><span class="si">${</span><span class="nx">AnimalPrototype</span><span class="p">.</span><span class="err">@</span><span class="mf">1</span><span class="si">}</span><span class="sb">) hace </span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">sound</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kd">function</span><span class="w"> </span><span class="nx">Animal</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span><span class="w"> </span><span class="nx">sound</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">name</span><span class="p">;</span>
+<span class="w">  </span><span class="k">this</span><span class="p">.</span><span class="nx">sound</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">sound</span><span class="p">;</span>
+<span class="w">  </span><span class="k">this</span><span class="p">.</span><span class="nx">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">++</span><span class="nx">Animal</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">count</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">Animal</span><span class="p">.</span><span class="err">@</span><span class="mf">2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">@</span><span class="mf">3</span><span class="p">;</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">animal1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="err">@</span><span class="mf">4</span><span class="p">(</span><span class="nx">AnimalPrototype</span><span class="p">);</span>
+<span class="nx">animal1</span><span class="p">.</span><span class="nx">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;gato&#39;</span><span class="p">;</span>
+<span class="nx">animal1</span><span class="p">.</span><span class="nx">sound</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;miau&#39;</span><span class="p">;</span>
+<span class="nx">animal1</span><span class="p">.</span><span class="nx">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">++</span><span class="nx">Animal</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">count</span><span class="p">;</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">animal2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">@</span><span class="mf">5</span><span class="w"> </span><span class="nx">Animal</span><span class="p">(</span><span class="s1">&#39;gallo&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;kikiriki&#39;</span><span class="p">);</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`total: </span><span class="si">${</span><span class="nx">Animal</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">count</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+<span class="nx">animal1</span><span class="p">.</span><span class="nx">makeSound</span><span class="p">();</span>
+<span class="nx">animal2</span><span class="p">.</span><span class="nx">makeSound</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>El código anterior crea dos objetos en JavaScript e imprime lo siguiente en consola:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>total: 2
+el gato (1/2) hace miau
+el gallo (2/2) hace kikiriki
+</pre></div>
+</div>
+<p>Indica el valor de las marcas <code class="docutils literal notranslate"><span class="pre">&#64;1</span></code>, <code class="docutils literal notranslate"><span class="pre">&#64;2</span></code>, <code class="docutils literal notranslate"><span class="pre">&#64;3</span></code>, <code class="docutils literal notranslate"><span class="pre">&#64;4</span></code> y <code class="docutils literal notranslate"><span class="pre">&#64;5</span></code> para que el código anterior funcione como se ha indicado.</p>
+</div>
+<div class="problema admonition">
+<p class="admonition-title"><span class="problema-contador-cliente">Problema</span></p>
+<p>La sencilla aplicación web que se estudia en este problema muestra una cuenta atrás hasta la entrada del año 2024. Unos segundos después de alcanzado ese momento, el contador desaparece y se muestra un mensaje de felicitación con emojis. El fichero <code class="docutils literal notranslate"><span class="pre">index.html</span></code> es el siguiente:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Countdown to a new year<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;style.css&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;script.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;container&quot;</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">h1</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;headline&quot;</span><span class="p">&gt;</span>Countdown to a new year<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;countdown&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;days&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>days<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;hours&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>Hours<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;minutes&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>Minutes<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;seconds&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>Seconds<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;content&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;emoji&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;</span>🥳<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;</span>🎉<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;</span>🎂<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>El fichero <code class="docutils literal notranslate"><span class="pre">style.css</span></code> es el siguiente:</p>
+<div class="highlight-css notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="k">box-sizing</span><span class="p">:</span><span class="w"> </span><span class="kc">border-box</span><span class="p">;</span>
+<span class="w">   </span><span class="k">margin</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">   </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w"> </span><span class="p">}</span>
+
+<span class="w"> </span><span class="nt">body</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="k">background-color</span><span class="p">:</span><span class="w"> </span><span class="mh">#ffd54f</span><span class="p">;</span>
+<span class="w">   </span><span class="k">font-family</span><span class="p">:</span><span class="w"> </span><span class="n">Roboto</span><span class="p">,</span><span class="w"> </span><span class="n">Ubuntu</span><span class="p">,</span><span class="w"> </span><span class="kc">sans-serif</span><span class="p">;</span>
+<span class="w"> </span><span class="p">}</span>
+
+<span class="w"> </span><span class="p">.</span><span class="nc">container</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="mh">#333</span><span class="p">;</span>
+<span class="w">   </span><span class="k">margin</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="kc">auto</span><span class="p">;</span>
+<span class="w">   </span><span class="k">text-align</span><span class="p">:</span><span class="w"> </span><span class="kc">center</span><span class="p">;</span>
+<span class="w"> </span><span class="p">}</span>
+
+<span class="w"> </span><span class="nt">h1</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="k">font-weight</span><span class="p">:</span><span class="w"> </span><span class="kc">normal</span><span class="p">;</span>
+<span class="w">   </span><span class="k">letter-spacing</span><span class="p">:</span><span class="w"> </span><span class="mf">.125</span><span class="kt">em</span><span class="p">;</span>
+<span class="w">   </span><span class="k">text-transform</span><span class="p">:</span><span class="w"> </span><span class="kc">uppercase</span><span class="p">;</span>
+<span class="w"> </span><span class="p">}</span>
+
+<span class="w"> </span><span class="nt">li</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">inline-block</span><span class="p">;</span>
+<span class="w">   </span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="mf">1.5</span><span class="kt">em</span><span class="p">;</span>
+<span class="w">   </span><span class="k">list-style-type</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span>
+<span class="w">   </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="kt">em</span><span class="p">;</span>
+<span class="w">   </span><span class="k">text-transform</span><span class="p">:</span><span class="w"> </span><span class="kc">uppercase</span><span class="p">;</span>
+<span class="w"> </span><span class="p">}</span>
+
+<span class="w"> </span><span class="nt">li</span><span class="w"> </span><span class="nt">span</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">block</span><span class="p">;</span>
+<span class="w">   </span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="mf">4.5</span><span class="kt">em</span><span class="p">;</span>
+<span class="w"> </span><span class="p">}</span>
+
+<span class="w"> </span><span class="p">.</span><span class="nc">emoji</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="o">@</span><span class="mi">1</span><span class="p">;</span>
+<span class="w">   </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="kt">em</span><span class="p">;</span>
+<span class="w"> </span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Finalmente, el fichero <code class="docutils literal notranslate"><span class="pre">script.js</span></code> es el siguiente:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">second</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1000</span><span class="p">;</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">minute</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">second</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">60</span><span class="p">;</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">hour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">minute</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">60</span><span class="p">;</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">day</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">hour</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">24</span><span class="p">;</span>
+
+<span class="w">  </span><span class="nx">newyear</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="s2">&quot;Jan 1, 2024 00:00:30&quot;</span><span class="p">;</span>
+
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">countDown</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">(</span><span class="nx">newyear</span><span class="p">).</span><span class="nx">getTime</span><span class="p">();</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">setInterval</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">now</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">().</span><span class="nx">getTime</span><span class="p">();</span>
+<span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">distance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">countDown</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">now</span><span class="p">;</span><span class="w">  </span><span class="c1">// milliseconds until new year</span>
+
+<span class="w">        </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;days&quot;</span><span class="p">).</span><span class="nx">innerText</span><span class="w"> </span><span class="o">=</span>
+<span class="w">                </span><span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">distance</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="nx">day</span><span class="p">));</span>
+<span class="w">        </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;hours&quot;</span><span class="p">).</span><span class="nx">innerText</span><span class="w"> </span><span class="o">=</span>
+<span class="w">                </span><span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">((</span><span class="nx">distance</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="p">(</span><span class="nx">day</span><span class="p">))</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="nx">hour</span><span class="p">));</span>
+<span class="w">        </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;minutes&quot;</span><span class="p">).</span><span class="nx">innerText</span><span class="w"> </span><span class="o">=</span>
+<span class="w">                </span><span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">((</span><span class="nx">distance</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="p">(</span><span class="nx">hour</span><span class="p">))</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="nx">minute</span><span class="p">));</span>
+<span class="w">        </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;seconds&quot;</span><span class="p">).</span><span class="nx">innerText</span><span class="w"> </span><span class="o">=</span>
+<span class="w">                </span><span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">((</span><span class="nx">distance</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="p">(</span><span class="nx">minute</span><span class="p">))</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">second</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// do something when date is reached</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">distance</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;headline&quot;</span><span class="p">).</span><span class="nx">innerText</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Happy New Year!&quot;</span><span class="p">;</span>
+<span class="w">          </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="err">@</span><span class="mf">2</span><span class="p">).</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;none&quot;</span><span class="p">;</span>
+<span class="w">          </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;content&quot;</span><span class="p">).</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">@</span><span class="mf">3</span><span class="p">;</span>
+<span class="w">          </span><span class="nx">clearInterval</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="c1">//seconds</span>
+<span class="w">      </span><span class="p">},</span><span class="w"> </span><span class="mf">1000</span><span class="p">)</span>
+<span class="w">  </span><span class="p">}());</span>
+</pre></div>
+</div>
+<p>La función <code class="docutils literal notranslate"><span class="pre">setInterval</span></code> define una función que se ejecuta cada segundo y devuelve un identificador que se usa para detener estas llamadas cuando se alcanza la fecha límite a través de la función <code class="docutils literal notranslate"><span class="pre">clearInterval</span></code>.</p>
+<p>Indica el valor de las marcas <code class="docutils literal notranslate"><span class="pre">&#64;1</span></code>, <code class="docutils literal notranslate"><span class="pre">&#64;2</span></code> y <code class="docutils literal notranslate"><span class="pre">&#64;3</span></code> para que el código anterior funcione como se ha indicado.</p>
+</div>
+<div class="problema admonition">
+<p class="admonition-title"><span class="problema-contador-cliente">Problema</span></p>
+<p>El siguiente código permite jugar en el navegador a una versión muy simplificada del juego del dinosaurio al que se puede jugar en Google Chrome cuando no se puede mostrar la página solicitada por falta de conexión (pregunta al profesor por la dinámica de este juego si no lo conoces). En este caso, al hacer clic en el botón izquierdo del ratón o pulsar cualquier tecla, el dinosaurio se desplaza de golpe (es decir, no suavemente) a una posición superior y vuelve al nivel del suelo pasado medio segundo. Se crea un nuevo cactus cada 2 segundos que se va desplazando desde la derecha de la zona de juego a la izquierda; el dinosaurio, por otro lado, no se desplaza horizontalmente desde su posición inicial a la izquierda.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Simple Dino Game&lt;/title&gt;
+    &lt;style&gt;
+      #game {
+        position: relative;
+        height: 200px;
+        width: 500px;
+        border: 1px solid black;
+      }
+      .dino {
+        position: absolute;
+        height: 20px;
+        width: 20px;
+        font-size: 20px;
+        bottom: 0;
+        transform: scale(-1, 1); /* flip the dino to look right */
+      }
+      .cactus {
+        position: @1;
+        height: 20px;
+        width: 20px;
+        font-size: 20px;
+        bottom: 0;
+        right: -20px;
+      }
+    &lt;/style&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div id=&quot;game&quot;&gt;
+      &lt;div class=&quot;dino&quot; id=&quot;dino&quot;&gt;🦖&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;script&gt;
+      var dino = document.getElementById(&#39;dino&#39;);
+      var game = document.getElementById(&#39;game&#39;);
+      var jumping = 0;
+      var obstacles = [];
+
+      document.addEventListener(&#39;keydown&#39;, function (e) {jump();});
+      document.addEventListener(&#39;click&#39;, function (e) {jump();});
+
+      function jump() {
+        if (jumping == 0) {
+          jumping = 1;
+          dino.style.bottom = &#39;100px&#39;;
+
+          setTimeout(function () {
+            @2 = &#39;0&#39;;
+            jumping = 0;
+          }, 500);
+        }
+      }
+
+      // create new obstacles every 2 seconds
+      setInterval(function () {
+        var cactus = document.createElement(&#39;div&#39;);
+        cactus.classList.add(&#39;cactus&#39;);
+        cactus.style.right = &#39;0&#39;;
+        cactus.textContent = &quot;🌵&quot;;
+        game.@3(cactus);
+
+        setInterval(function () {
+          if (cactus.textContent == &quot;&quot;) return;
+          var boxPos = parseInt(dino.style.bottom);
+          var obsPos = parseInt(cactus.style.right);
+
+          if (obsPos &gt; 480 &amp;&amp; obsPos &lt; 520 &amp;&amp; boxPos &lt;= 20) {
+            alert(&#39;Game Over!&#39;);
+            cactus.remove();
+            cactus.textContent = &quot;&quot;;
+          } else {
+            cactus.style.right = obsPos + 2 + &#39;px&#39;;
+          }
+        }, 10);
+      }, 2000);
+    &lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre></div>
+</div>
+<p>Indica con qué sustituir las marcas <code class="docutils literal notranslate"><span class="pre">&#64;1</span></code>, <code class="docutils literal notranslate"><span class="pre">&#64;2</span></code> y <code class="docutils literal notranslate"><span class="pre">&#64;3</span></code> para que el juego funcione correctamente.</p>
+</div>
+<div class="problema admonition">
+<p class="admonition-title"><span class="problema-contador-cliente">Problema</span></p>
+<p>Considera que el tiempo de ejecución de cualquier instrucción del siguiente código es no nulo pero virtualmente infinitesimal. La función <code class="docutils literal notranslate"><span class="pre">setTimeout</span></code> es estándar de JavaScript y registra una función que se ejecutará asíncronamente después del número de milisegundos indicados como segundo parámetro. Indica cuál es la salida del siguiente programa.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">t</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">i</span><span class="o">&lt;=</span><span class="mf">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">i</span><span class="o">%</span><span class="mf">2</span><span class="o">===</span><span class="mf">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">setTimeout</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">i</span><span class="p">),</span><span class="w"> </span><span class="mf">5000</span><span class="o">-</span><span class="nx">i</span><span class="o">*</span><span class="mf">100</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">setTimeout</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">i</span><span class="p">),</span><span class="w"> </span><span class="mf">5000</span><span class="o">+</span><span class="nx">i</span><span class="o">*</span><span class="mf">100</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="nx">t</span><span class="p">(</span><span class="nx">i</span><span class="o">-</span><span class="mf">1</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="nx">t</span><span class="p">(</span><span class="mf">1</span><span class="p">);</span><span class="w"> </span><span class="nx">t</span><span class="p">(</span><span class="mf">6</span><span class="p">);</span><span class="w"> </span><span class="nx">t</span><span class="p">(</span><span class="mf">1</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="problema admonition">
+<p class="admonition-title"><span class="problema-contador-cliente">Problema</span></p>
+<p>Considera este código de JavaScript:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">Character</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span><span class="w"> </span><span class="nx">house</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">name</span><span class="p">;</span>
+<span class="w">  </span><span class="k">this</span><span class="p">.</span><span class="nx">house</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">house</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">Character</span><span class="p">.</span><span class="err">@</span><span class="mf">1.</span><span class="nx">sayHello</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Hello, my name is </span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="sb"> and I belong to </span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">house</span><span class="si">}</span><span class="sb"> house.`</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span><span class="w"> </span><span class="nx">Wizard</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span><span class="w"> </span><span class="nx">house</span><span class="p">,</span><span class="w"> </span><span class="nx">pet</span><span class="p">,</span><span class="w"> </span><span class="nx">wand</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">this</span><span class="p">.</span><span class="nx">character</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Character</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span><span class="w"> </span><span class="nx">house</span><span class="p">);</span>
+<span class="w">  </span><span class="k">this</span><span class="p">.</span><span class="nx">pet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">pet</span><span class="p">;</span>
+<span class="w">  </span><span class="k">this</span><span class="p">.</span><span class="nx">wand</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">wand</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">Wizard</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">sayHello</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">this</span><span class="p">.</span><span class="nx">character</span><span class="p">.</span><span class="nx">sayHello</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="nx">Wizard</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">presentPet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`My pet is a </span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">pet</span><span class="p">.</span><span class="nx">species</span><span class="si">}</span><span class="sb">, and its name is </span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">pet</span><span class="p">.</span><span class="nx">petName</span><span class="si">}</span><span class="sb">.`</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">Wizard</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">waveWand</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Waving my </span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">wand</span><span class="si">}</span><span class="sb"> wand!`</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span><span class="w"> </span><span class="nx">Pet</span><span class="p">(</span><span class="nx">petName</span><span class="p">,</span><span class="w"> </span><span class="nx">species</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">this</span><span class="p">.</span><span class="nx">petName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">petName</span><span class="p">;</span>
+<span class="w">  </span><span class="k">this</span><span class="p">.</span><span class="nx">species</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">species</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="err">@</span><span class="mf">2.</span><span class="nx">hogwartsSchool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Hogwarts School of Witchcraft and Wizardry&#39;</span><span class="p">;</span><span class="w"> </span><span class="c1">// static property</span>
+
+<span class="nx">Pet</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">makeSound</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">species</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s1">&#39;owl&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Who who!&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">species</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s1">&#39;cat&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Meow!&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">species</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s1">&#39;toad&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Ribbit!&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;I make an unknown sound!&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">var</span><span class="w"> </span><span class="nx">hedwig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Pet</span><span class="p">(</span><span class="s1">&#39;Hedwig&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;owl&#39;</span><span class="p">);</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">harry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Wizard</span><span class="p">(</span><span class="s1">&#39;Harry Potter&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Gryffindor&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">hedwig</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Holly, 11&quot;, phoenix feather&#39;</span><span class="p">);</span>
+
+<span class="nx">harry</span><span class="p">.</span><span class="nx">sayHello</span><span class="p">();</span>
+<span class="nx">harry</span><span class="p">.</span><span class="nx">presentPet</span><span class="p">();</span>
+<span class="nx">harry</span><span class="p">.</span><span class="nx">waveWand</span><span class="p">();</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`I study at </span><span class="si">${</span><span class="nx">Wizard</span><span class="p">.</span><span class="nx">hogwartsSchool</span><span class="si">}</span><span class="sb">.`</span><span class="p">);</span>
+<span class="nx">hedwig</span><span class="p">.</span><span class="nx">makeSound</span><span class="p">();</span>
+
+<span class="kd">var</span><span class="w"> </span><span class="nx">crookshanks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Pet</span><span class="p">(</span><span class="s1">&#39;Crookshanks&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;cat&#39;</span><span class="p">);</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">hermione</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Wizard</span><span class="p">(</span><span class="s1">&#39;Hermione Granger&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Gryffindor&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">crookshanks</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Vine wood, 10¾&quot;, dragon heartstring&#39;</span><span class="p">);</span>
+
+<span class="nx">hermione</span><span class="p">.</span><span class="nx">sayHello</span><span class="p">();</span>
+<span class="nx">hermione</span><span class="p">.</span><span class="nx">presentPet</span><span class="p">();</span>
+<span class="nx">hermione</span><span class="p">.</span><span class="nx">waveWand</span><span class="p">();</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`I study at </span><span class="si">${</span><span class="nx">Wizard</span><span class="p">.</span><span class="nx">hogwartsSchool</span><span class="si">}</span><span class="sb">.`</span><span class="p">);</span>
+<span class="nx">crookshanks</span><span class="p">.</span><span class="nx">makeSound</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>El código anterior crea diversos objetos en JavaScript e imprime lo siguiente en consola:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Hello, my name is Harry Potter and I belong to Gryffindor house.
+My pet is a owl, and its name is Hedwig.
+Waving my Holly, 11&quot;, phoenix feather wand!
+I study at Hogwarts School of Witchcraft and Wizardry.
+Who who!
+Hello, my name is Hermione Granger and I belong to Gryffindor house.
+My pet is a cat, and its name is Crookshanks.
+Waving my Vine wood, 10¾&quot;, dragon heartstring wand!
+I study at Hogwarts School of Witchcraft and Wizardry.
+Meow!
+</pre></div>
+</div>
+<p>Indica el valor de las marcas <code class="docutils literal notranslate"><span class="pre">&#64;1</span></code> y <code class="docutils literal notranslate"><span class="pre">&#64;2</span></code> para que el código anterior funcione como se ha indicado.</p>
+</div>
 </section>
 <section id="acceso-a-servicios-web-de-terceros">
 <h2><span class="section-number">8.4. </span>Acceso a servicios web de terceros<a class="headerlink" href="#acceso-a-servicios-web-de-terceros" title="Enlace permanente a este encabezado"></a></h2>
@@ -2801,6 +3482,128 @@
 <a class="reference external image-reference" href="_static/img/problema-anatomy-http-request.png"><img alt="peticiones HTTP" src="_images/problema-anatomy-http-request.png" /></a>
 </figure>
 </div>
+<div class="problema admonition">
+<p class="admonition-title"><span class="problema-contador-servicios">Problema</span></p>
+<p>El siguiente código en JavaScript crea tres objetos de tipo promesa y después utiliza el método <code class="docutils literal notranslate"><span class="pre">Promise.all</span></code> para ejecutarlas todas a la vez. Este método, ya definido en la clase <code class="docutils literal notranslate"><span class="pre">Promise</span></code> de la librería de JavaScript, devuelve una promesa que se resuelve (esto es, se cumple) cuando todas las promesas pasadas en un <em>array</em> como argumento se han resuelto. Si todas las promesas se cumplen, la promesa devuelta por <code class="docutils literal notranslate"><span class="pre">Promise.all</span></code> se cumple con un <em>array</em> que contiene los valores de las promesas cumplidas. Si alguna de las promesas se rechaza, la promesa devuelta por <code class="docutils literal notranslate"><span class="pre">Promise.all</span></code> se rechaza con el motivo de la promesa que se rechazó; en el caso de que se rechace más de una promesa, la promesa devuelta por <code class="docutils literal notranslate"><span class="pre">Promise.all</span></code> se rechaza con el motivo de la primera promesa que se haya rechazado.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span>const p1 = new Promise((resolve, reject) =&gt; {
+  setTimeout(() =&gt; {
+    if (flag)
+      resolve(1);
+    else
+      @1(1);
+  }, 5000);
+});
+
+const p2 = new Promise((resolve, reject) =&gt; {
+  setTimeout(() =&gt; {
+    if (flag)
+      @2(2);
+    else
+      @3(2);
+  }, 3000);
+});
+
+const p3 = new Promise((resolve, reject) =&gt; {
+  setTimeout(() =&gt; {
+    resolve(3);
+  }, 2000);
+});
+
+Promise.all([p3, @4, p1, p3]).then(values =&gt; {
+  values.forEach(value =&gt; console.log(value));
+}).catch(console.log);
+</pre></div>
+</div>
+<p>Indica con qué sustituir las marcas <code class="docutils literal notranslate"><span class="pre">&#64;1</span></code>, <code class="docutils literal notranslate"><span class="pre">&#64;2</span></code>, <code class="docutils literal notranslate"><span class="pre">&#64;3</span></code> y <code class="docutils literal notranslate"><span class="pre">&#64;4</span></code> para que el código anterior imprima solo un <code class="docutils literal notranslate"><span class="pre">2</span></code> por consola cuando la variable global <code class="docutils literal notranslate"><span class="pre">flag</span></code> sea verdadera y más de un valor cuando la variable <code class="docutils literal notranslate"><span class="pre">flag</span></code> sea falsa.</p>
+</div>
+<div class="problema admonition">
+<p class="admonition-title"><span class="problema-contador-servicios">Problema</span></p>
+<p>La respuesta de este problema tiene que ver con la función <code class="docutils literal notranslate"><span class="pre">Promise.all</span></code> discutida en el problema anterior, aunque no es necesario haber resuelto aquel para resolver este problema. Se propone la siguiente implementación de la función <code class="docutils literal notranslate"><span class="pre">all</span></code> (llamada aquí <code class="docutils literal notranslate"><span class="pre">my_all</span></code>), que aunque presenta alguna carencias respecto a la implementación de la librería de JavaScript, es suficiente para funcionar correctamente en el caso de uso del problema anterior:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span>function my_all(promises) {
+  return new Promise((resolve, reject) =&gt; {
+    let resolvedCounter = 0;
+    let resolvedValues = [ ];
+    for (let i = 0; i &lt; promises.length; i++) {
+      promises[i]
+      .then(value =&gt; {
+        resolvedCounter++;
+        resolvedValues[i] = @1;
+        if (resolvedCounter == @2) {
+          resolve(resolvedValues);
+        }
+      })
+      .catch(value =&gt; reject(value));
+    }
+  });
+}
+</pre></div>
+</div>
+<p>Indica con qué sustituir <code class="docutils literal notranslate"><span class="pre">&#64;1</span></code> y <code class="docutils literal notranslate"><span class="pre">&#64;2</span></code> para que el código anterior corresponda a una implementación adecuada de <code class="docutils literal notranslate"><span class="pre">Promise.all</span></code>.</p>
+</div>
+<div class="problema admonition">
+<p class="admonition-title"><span class="problema-contador-servicios">Problema</span></p>
+<p>El siguiente código en JavaScript crea tres objetos de tipo promesa y después utiliza el método <em>inventado</em> <code class="docutils literal notranslate"><span class="pre">Promise.allBefore</span></code> (que no existe en el API oficial de la clase <code class="docutils literal notranslate"><span class="pre">Promise</span></code>) para activarlas todas a la vez. Este método devuelve una promesa que se resuelve (esto es, se cumple) cuando todas las promesas pasadas en un <em>array</em> en su primer argumento se han resuelto antes de los tiempos indicados para cada una en la lista del segundo argumento. Si todas las promesas se cumplen, la promesa devuelta por <code class="docutils literal notranslate"><span class="pre">Promise.allBefore</span></code> se cumple con un <em>array</em> que contiene los valores de las promesas cumplidas. Si alguna de las promesas se rechaza, la promesa devuelta por <code class="docutils literal notranslate"><span class="pre">Promise.allBefore</span></code> se rechaza con el motivo de la promesa que se rechazó; en el caso de que se rechace más de una promesa, la promesa devuelta por <code class="docutils literal notranslate"><span class="pre">Promise.allBefore</span></code> se rechaza con el motivo de la primera promesa que se haya rechazado.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span>let promise1 = new Promise((@1, reject) =&gt; {
+    setTimeout(@2, 2000, &#39;⛅&#39;);
+});
+
+let promise2 = new Promise((@1, reject) =&gt; {
+    setTimeout(@2, 1000, &#39;🌞&#39;);
+});
+
+let promise3 = new Promise((@1, reject) =&gt; {
+    setTimeout(@2, 3000, &#39;🌙&#39;);
+});
+
+Promise.allBefore([promise1, promise2, promise3], [2500, 1500, 3500])
+    .then((values) =&gt; {
+        console.log(values);
+    })
+    .catch((error) =&gt; {
+        console.error(error);
+    });
+</pre></div>
+</div>
+<p>Observa que la promesa devuelta por la llamada a <code class="docutils literal notranslate"><span class="pre">allBefore</span></code> anterior se termina cumpliendo, pero no sería así si cambiáramos <code class="docutils literal notranslate"><span class="pre">2000</span></code> por <code class="docutils literal notranslate"><span class="pre">4000</span></code>.</p>
+<p>Los argumentos de <code class="docutils literal notranslate"><span class="pre">setTimeOut</span></code> del tercero en adelante son argumentos que se pasan a la función que se ejecuta cuando se cumple el tiempo indicado.</p>
+<p>Indica con qué sustituir las marcas <code class="docutils literal notranslate"><span class="pre">&#64;1</span></code> y <code class="docutils literal notranslate"><span class="pre">&#64;2</span></code> para que el código anterior imprima, en este orden, los emojis 🌞 ⛅ 🌙.</p>
+</div>
+<div class="problema admonition">
+<p class="admonition-title"><span class="problema-contador-servicios">Problema</span></p>
+<p>La respuesta de este problema tiene que ver con la función <code class="docutils literal notranslate"><span class="pre">Promise.allBefore</span></code> discutida en el problema anterior, aunque no es necesario haber resuelto aquel para resolver este problema. Se propone la siguiente implementación de la función <code class="docutils literal notranslate"><span class="pre">allBefore</span></code>, que funciona correctamente en el caso de uso del problema anterior:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span>Promise.allBefore = function (promises, milliseconds) {
+    return new Promise((resolve, reject) =&gt; {
+        let results = [];
+        let count = 0;
+
+        if (promises.length !== milliseconds.length) {
+            throw new Error(&#39;Error: los arrays no tienen la misma longitud&#39;);
+        }
+
+        promises.forEach((promise, index) =&gt; {
+            let timer = setTimeout(() =&gt; {
+                @1(`La Promesa en el índice ${index} no se resolvió en el tiempo especificado.`);
+            }, @2);
+
+            promise.then(result =&gt; {
+                clearTimeout(timer);
+                results[index] = result;
+                count++;
+
+                if (@3) {
+                    resolve(results);
+                }
+            }).catch(error =&gt; {
+                clearTimeout(timer);
+                reject(error);
+            });
+        });
+    });
+};
+</pre></div>
+</div>
+<p>Indica con qué sustituir <code class="docutils literal notranslate"><span class="pre">&#64;1</span></code>, <code class="docutils literal notranslate"><span class="pre">&#64;2</span></code> y <code class="docutils literal notranslate"><span class="pre">&#64;3</span></code> para que el código anterior corresponda a una implementación adecuada de <code class="docutils literal notranslate"><span class="pre">Promise.allBefore</span></code>.</p>
+</div>
 </section>
 <section id="componentes-web">
 <h2><span class="section-number">8.5. </span>Componentes web<a class="headerlink" href="#componentes-web" title="Enlace permanente a este encabezado"></a></h2>
@@ -3006,6 +3809,94 @@
 <li><p>Aunque el estándar HTML indica que desde el constructor de un componente web no se debería poder acceder a los atributos del elemento, algunos navegadores permiten hacerlo.</p></li>
 <li><p>La versión 3 de HTTP se apoya en un protocolo de transporte llamado QUIC.</p></li>
 </ol>
+</div>
+<div class="problema admonition">
+<p class="admonition-title"><span class="problema-contador-componentes">Problema</span></p>
+<p>Considera el siguiente código que define e instancia un componente web que muestra tres emojis diferentes y un contador bajo cada uno de ellos que se incrementa al hacer clic sobre el emoji correspondiente. El contador se inicializa a cero salvo que se dé un valor al atributo <code class="docutils literal notranslate"><span class="pre">init</span></code> al instanciar el componente.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;body&gt;
+    &lt;emoji-reaction init=&quot;2&quot;&gt;&lt;/emoji-reaction&gt;
+
+    &lt;script&gt;
+      class EmojiReaction extends HTMLElement {
+        constructor() {
+          super();
+
+          this.sadCount = this.getAttribute(&#39;init&#39;) @1 0;
+          this.happyCount = this.getAttribute(&#39;init&#39;) @1 0;
+          this.laughCount = this.getAttribute(&#39;init&#39;) @1 0;
+
+          this.emojiMap = {
+            &#39;😞&#39;: this.sadCount,
+            &#39;😀&#39;: this.happyCount,
+            &#39;😂&#39;: this.laughCount,
+          };
+
+          this.shadow = this.attachShadow({ mode: &#39;open&#39; });
+        }
+
+        connectedCallback() {
+          this.render();
+          @2;
+        }
+
+        render() {
+          this.shadow.innerHTML = `
+            &lt;style&gt;
+              .emoji-container {
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                padding: 1em;
+                background-color: #f0f0f0;
+                border-radius: 1em;
+                box-shadow: 0px 0px 10px rgba(0,0,0,0.15);
+              }
+              .emoji-item {
+                text-align: center;
+                cursor: pointer;
+              }
+            &lt;/style&gt;
+            &lt;div class=&quot;emoji-container&quot;&gt;
+              ${Object.entries(this.emojiMap)
+                .map(
+                  ([emoji, count]) =&gt;
+                    `&lt;div @3&gt;
+                      &lt;div class=&quot;emoji&quot;&gt;${emoji}&lt;/div&gt;
+                      &lt;div class=&quot;count&quot;&gt;${count}&lt;/div&gt;
+                    &lt;/div&gt;`
+                )
+                .join(&#39;&#39;)}
+            &lt;/div&gt;
+          `;
+        }
+
+        registerEventListeners() {
+          this.shadow.querySelectorAll(&#39;.emoji-item&#39;).forEach((item) =&gt; {
+            item.addEventListener(&#39;click&#39;, (e) =&gt; {
+              const emoji = e.currentTarget.querySelector(&#39;.emoji&#39;).textContent;
+              this.incrementCount(emoji);
+            });
+          });
+        }
+
+        incrementCount(emoji) {
+          this.emojiMap[emoji]@4;
+          this.render();
+          this.registerEventListeners();
+        }
+      }
+
+      window.customElements.define(&#39;emoji-reaction&#39;, EmojiReaction);
+    &lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre></div>
+</div>
+<p>La función <code class="docutils literal notranslate"><span class="pre">Object.entries</span></code> devuelve un <em>array</em> de <em>arrays</em> con las parejas clave-valor de un objeto. Por ejemplo, <code class="docutils literal notranslate"><span class="pre">Object.entries({</span> <span class="pre">a:</span> <span class="pre">1,</span> <span class="pre">b:</span> <span class="pre">2</span> <span class="pre">})</span></code> devuelve <code class="docutils literal notranslate"><span class="pre">[['a',</span> <span class="pre">1],</span> <span class="pre">['b',</span> <span class="pre">2]]</span></code>. La función <code class="docutils literal notranslate"><span class="pre">join</span></code> une los elementos de un <em>array</em> en una cadena separándolos por el carácter que se le pasa como argumento. Por ejemplo, <code class="docutils literal notranslate"><span class="pre">['a',</span> <span class="pre">'b',</span> <span class="pre">'c'].join('-')</span></code> devuelve <code class="docutils literal notranslate"><span class="pre">'a-b-c'</span></code>. La función <code class="docutils literal notranslate"><span class="pre">map</span></code> aplica una función a cada elemento de un <em>array</em> y devuelve un <em>array</em> con los resultados. Por ejemplo, <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">2,</span> <span class="pre">3].map((x)</span> <span class="pre">=&gt;</span> <span class="pre">x</span> <span class="pre">*</span> <span class="pre">2)</span></code> devuelve <code class="docutils literal notranslate"><span class="pre">[2,</span> <span class="pre">4,</span> <span class="pre">6]</span></code>.</p>
+<p>No necesitas conocer esto para resolver este problema, pero la propiedad <code class="docutils literal notranslate"><span class="pre">display:flex</span></code> de CSS permite definir un contenedor flexible que alinea sus elementos hijos de forma horizontal o vertical; la propiedad <code class="docutils literal notranslate"><span class="pre">justify-content:</span> <span class="pre">space-around</span></code> permite distribuir los elementos hijos de un contenedor flexible de forma que haya el mismo espacio entre ellos; y la propiedad  <code class="docutils literal notranslate"><span class="pre">align-items:</span> <span class="pre">center</span></code> permite alinear verticalmente los elementos hijos de un contenedor flexible.</p>
+<p>Sustituye <code class="docutils literal notranslate"><span class="pre">&#64;1</span></code>, <code class="docutils literal notranslate"><span class="pre">&#64;2</span></code>, <code class="docutils literal notranslate"><span class="pre">3</span></code> y <code class="docutils literal notranslate"><span class="pre">&#64;4</span></code> por las cadenas necesarias para que el componente web se comporte correctamente.</p>
 </div>
 </section>
 <section id="implementacion-de-servicios-web">
@@ -3321,6 +4212,32 @@
 <li><p>La instrucción <em>RUN</em> de un <em>Dockerfile</em> sirve para ejecutar código dentro del sistema operativo de la imagen mientras esta se construye.</p></li>
 <li><p>Cuando usamos el servicio <em>Google Cloud Build</em>, la imagen resultante se almacena en una base de datos relacional dentro de <em>Google Cloud SQL</em>.</p></li>
 </ol>
+</div>
+<div class="problema admonition">
+<p class="admonition-title"><span class="problema-contador-nube">Problema</span></p>
+<p>Tenemos toda una serie de aplicaciones desplegadas en Google Cloud Platform, algunas de las cuales almacenan ficheros en un <em>bucket</em> de Cloud Storage. Queremos ahora programar un servicio web que inserte en una tabla de una base de datos MySQL alojada en Cloud SQL la hora actual y el número de elementos almacenados en este momento en dicho <em>bucket</em>. Indica cuál o cuáles de las siguientes opciones constituye una posibilidad viable para ello, independientemente de su eficiencia o coste. Si ninguna lo es, indica <em>ninguna</em> como respuesta.</p>
+<ol class="arabic simple">
+<li><p>Podríamos desplegar en Google App Engine una aplicación escrita en Java, que es uno de los lenguajes soportados por la plataforma, que obtenga mediante el API de Cloud Storage el número de elementos almacenados en el <em>bucket</em> y se conecte después a la base de datos de Cloud SQL para actualizar la tabla correspondiente. La aplicación expondría un servicio web que se ejecutaría en respuesta a una petición HTTP.</p></li>
+<li><p>Podríamos desarrollar una aplicación en Python que se ejecute en una instancia de Compute Engine y que se conecte a la base de datos de Cloud SQL y a Cloud Storage de forma similar a la alojada en Google App Engine. La instancia tendría los puertos necesarios abiertos para que se pudiera realizar peticiones HTTP a ella desde otras máquinas.</p></li>
+<li><p>Podríamos crear una función de Cloud Functions en JavaScript que se ejecute en respuesta a una petición web concreta. La función podría conectarse mediante el API correspondiente a Cloud Storage para obtener el número de elementos y a Cloud SQL para actualizar la base de datos.</p></li>
+<li><p>Podríamos escribir un fichero <code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code> que cree una imagen que permita lanzar contenedores que incluyan un servidor PHP que ofrezca un servicio web que se ejecute en respuesta a una petición HTTP. El contenedor podría conectarse a la base de datos de Cloud SQL y a Cloud Storage mediante el API correspondiente. Podríamos utilizar Cloud Build para crear un flujo de integración que se ejecute cada vez que se realice un cambio en el código de nuestra aplicación de PHP. De esta manera, tendríamos siempre lista una imagen que podría ser desplegada en Cloud Run, que se encargará de crear y gestionar automáticamente los contenedores necesarios para ejecutar nuestra aplicación, así como proporcionar una URL pública para acceder a ella.</p></li>
+</ol>
+</div>
+<div class="problema admonition">
+<p class="admonition-title"><span class="problema-contador-nube">Problema</span></p>
+<p>Indica con qué sustituir <code class="docutils literal notranslate"><span class="pre">&#64;1</span></code> y <code class="docutils literal notranslate"><span class="pre">&#64;2</span></code> en el siguiente fichero <code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code> para que al usarlo con el programa <code class="docutils literal notranslate"><span class="pre">docker</span></code> se cree una imagen que permite lanzar contenedores que despliegan la aplicación web de Node.js formada por los ficheros <code class="docutils literal notranslate"><span class="pre">index.html</span></code> y <code class="docutils literal notranslate"><span class="pre">app.js</span></code> en el puerto 8080.</p>
+<blockquote>
+<div><div class="highlight-docker notranslate"><div class="highlight"><pre><span></span><span class="k">FROM</span><span class="w"> </span><span class="s">node:14-alpine</span>
+<span class="k">WORKDIR</span><span class="w"> </span><span class="s">/app</span>
+<span class="k">COPY</span><span class="w"> </span>package*.json<span class="w"> </span>./
+@1<span class="w"> </span>npm<span class="w"> </span>install
+@2<span class="w"> </span>index.html<span class="w"> </span>.
+@2<span class="w"> </span>app.js<span class="w"> </span>.
+<span class="k">EXPOSE</span><span class="w"> </span><span class="s">8080</span>
+<span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">&quot;npm&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;start&quot;</span><span class="w"> </span><span class="p">]</span>
+</pre></div>
+</div>
+</div></blockquote>
 </div>
 </section>
 </section>
