@@ -336,7 +336,7 @@ Para instalar Docker en Ubuntu se puede hacer::
   sudo gpasswd -a $USER docker
   newgrp docker
 
-Las tres últimas líneas son para poder ejecutar ``docker`` sin permisos explícitos de administrador, aunque, en cualquier caso, la aplicación se ejecutará con estos permisos; alternativas de código abierto como `Podman`_ permiten ejecutar contenedores sin estos privilegios.
+Las tres últimas líneas son para poder ejecutar ``docker`` sin permisos explícitos de administrador, aunque, en cualquier caso, la aplicación se ejecutará con estos permisos; alternativas de código abierto como `Podman`_ permiten ejecutar contenedores sin estos privilegios; en ese caso, basta con instalar los paquetes ``podman`` y ``podman-docker``.
 
 .. _`Podman`: https://podman.io/
 

@@ -313,9 +313,9 @@ sudo gpasswd -a $USER docker
 newgrp docker
 </pre></div>
 </div>
-<p>Las tres últimas líneas son para poder ejecutar <code class="docutils literal notranslate"><span class="pre">docker</span></code> sin permisos explícitos de administrador, aunque, en cualquier caso, la aplicación se ejecutará con estos permisos; alternativas de código abierto como <a class="reference external" href="https://podman.io/">Podman</a> permiten ejecutar contenedores sin estos privilegios.</p>
+<p>Las tres últimas líneas son para poder ejecutar <code class="docutils literal notranslate"><span class="pre">docker</span></code> sin permisos explícitos de administrador, aunque, en cualquier caso, la aplicación se ejecutará con estos permisos; alternativas de código abierto como <a class="reference external" href="https://podman.io/">Podman</a> permiten ejecutar contenedores sin estos privilegios; en ese caso, basta con instalar los paquetes <code class="docutils literal notranslate"><span class="pre">podman</span></code> y <code class="docutils literal notranslate"><span class="pre">podman-docker</span></code>.</p>
 <p>Los dos ficheros relevantes de la aplicación del carrito para este apartado son <code class="docutils literal notranslate"><span class="pre">.dockerignore</span></code> (especifica qué ficheros o directorios ignorar en instrucciones como <code class="docutils literal notranslate"><span class="pre">COPY</span></code>) y, principalmente, <code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code>, cuyo contenido es el siguiente:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="n">FROM</span> <span class="n">ubuntu</span><span class="p">:</span><span class="mf">20.04</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="n">FROM</span> <span class="n">ubuntu</span><span class="p">:</span><span class="mf">24.04</span>
 <span class="linenos"> 2</span>
 <span class="linenos"> 3</span><span class="n">ARG</span> <span class="n">DEBIAN_FRONTEND</span><span class="o">=</span><span class="n">noninteractive</span>
 <span class="linenos"> 4</span><span class="n">RUN</span> <span class="n">apt</span> <span class="n">update</span> \
